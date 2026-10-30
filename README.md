@@ -2,14 +2,6 @@
 
 Ein illustrierter, interaktiver Kurs zum 12-Kanal-EKG – statische Website, keine Build-Tools.
 
-## Veröffentlichen mit GitHub Pages
-
-1. Den Ordnerinhalt (index.html, `assets/`, README.md) ins Repository legen.
-2. Auf GitHub: **Settings → Pages → Build and deployment → Source: „Deploy from a branch“**, Branch `main`, Ordner `/ (root)`.
-3. Nach ein bis zwei Minuten ist die Seite unter `https://<nutzername>.github.io/<repository>/` erreichbar.
-
-Lokal funktioniert die Seite auch per Doppelklick auf `index.html` (alle Skripte sind klassische Skripte, keine ES-Module).
-
 ## Aufbau
 
 ```
