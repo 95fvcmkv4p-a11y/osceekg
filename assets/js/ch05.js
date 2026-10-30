@@ -24,14 +24,17 @@
     const beat = EKG.makeBeat({ axis: rot, qt: 400 });
     const rr = 860, sch = [];
     for (let t0 = 100 - rr; t0 < 3200; t0 += rr) sch.push({ t0, beat });
-    return U.model12(sch, { fs: 400, duration: 2600, leads: ["I", "II", "III", "aVR", "aVL", "aVF", "-aVR"] });
+    const out = U.model12(sch, { fs: 400, duration: 2600, leads: ["I", "II", "III", "aVR", "aVL", "aVF", "-aVR"] });
+    out.beat = beat; out.rot = rot;
+    return out;
   }
 
   function initFig5A() {
     const root = document.getElementById("fig-5a");
     if (!root) return;
     const svg = root.querySelector("svg");
-    const canvas = root.querySelector("canvas");
+    const canvas = root.querySelector("canvas.ecg-canvas");
+    const h3 = U.heart3d(root.querySelector("canvas.h3d"), { axes: "frontal", horizontal: false, view: "vorn" });
     const slider = root.querySelector(".ax"), axOut = root.querySelector(".ax-out");
     const readout = root.querySelector(".readout");
     const typeBox = root.querySelector(".types");
@@ -60,17 +63,19 @@
     el("path", { d: "M0,0 L10,5 L0,10 z", fill: "var(--accent)" }, mk);
     const arrow = el("line", { x1: C, y1: C, stroke: "var(--accent)", "stroke-width": 3.5, "marker-end": "url(#arr5)" }, svg);
 
-    const cv = U.canvas(canvas, (w) => Math.ceil(6 * 20 * (w / (2.6 * 25 * 1.0 + 2)) / 2.2), (ctx, w, h) => {
+    const cv = U.canvas(canvas, (w) => Math.ceil((w / 2 / 33) * 3 * 19), (ctx, w, h) => {
       if (!sig) return;
-      const pxmm = w / 67; ctx.clearRect(0, 0, w, h); U.paper(ctx, 0, 0, w, h, pxmm);
-      const rows = EKG.CABRERA, rowH = h / 6;
+      const colW = w / 2, pxmm = colW / 33; ctx.clearRect(0, 0, w, h); U.paper(ctx, 0, 0, w, h, pxmm);
+      const rows = EKG.CABRERA, rowH = h / 3;
       rows.forEach((l, i) => {
-        const y0 = i * rowH + rowH * 0.66;
-        const gain = Math.min(10, (rowH * 0.6) / (1.6 * pxmm));
-        U.trace(ctx, sig.leads[l], sig.fs, { x0: pxmm, y0, pxmm, gain, width: 1.4 });
-        U.label(ctx, `${l.replace("-", "−")} (${EKG.FRONTAL_ANGLE[l] > 0 ? "+" : ""}${EKG.FRONTAL_ANGLE[l]}°)`, pxmm + 4, i * rowH + 14, { size: 11.5, color: U.cssVar("--accent") });
+        const col = Math.floor(i / 3), r = i % 3;
+        const x0 = col * colW + pxmm, y0 = r * rowH + rowH * 0.64;
+        const gain = Math.min(10, (rowH * 0.62) / (1.6 * pxmm));
+        U.trace(ctx, sig.leads[l], sig.fs, { x0, y0, pxmm, gain, width: 1.4, i1: Math.round(1.25 * sig.fs) });
+        U.label(ctx, `${l.replace("-", "−")} (${EKG.FRONTAL_ANGLE[l] > 0 ? "+" : ""}${EKG.FRONTAL_ANGLE[l]}°)`, x0 + 4, r * rowH + 14, { size: 11.5, color: U.cssVar("--accent") });
       });
-      U.label(ctx, "Cabrera-Reihenfolge · 25 mm/s", w - 6, h - 6, { size: 10, align: "right", color: U.cssVar("--ink-soft"), bg: U.cssVar("--ecg-bg") });
+      ctx.strokeStyle = U.cssVar("--ink"); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(colW, 0); ctx.lineTo(colW, h); ctx.stroke();
+      U.label(ctx, "Cabrera-Reihenfolge (spaltenweise) · 25 mm/s", w - 6, h - 6, { size: 10, align: "right", color: U.cssVar("--ink-soft"), bg: U.cssVar("--ecg-bg") });
     });
 
     function setAxis(a, reveal) {
@@ -83,6 +88,8 @@
       axOut.textContent = vis ? `${a > 0 ? "+" : ""}${Math.round(a)}° · ${name}` : "?";
       if (mode === "explore") readout.innerHTML = explain(a);
       cv.redraw();
+      if (vis) h3.set({ hidden: false, frontRot: sig.rot, loops: [{ pts: U.loop3d(sig.beat, sig.beat.qrsOn - 2, sig.beat.qrsOff + 4) }], vec: U.meanQRS(sig.beat) });
+      else h3.set({ hidden: true, label: "Erst den Lagetyp wählen – dann siehst du das Herz" });
     }
     function explain(a) {
       const vals = Object.fromEntries(EKG.CABRERA.map((l) => [l, Math.cos((a - EKG.FRONTAL_ANGLE[l]) * D2R)]));
@@ -130,7 +137,8 @@
   function initFig5B() {
     const root = document.getElementById("fig-5b");
     if (!root) return;
-    const canvas = root.querySelector("canvas");
+    const canvas = root.querySelector("canvas.ecg-canvas");
+    const h3 = U.heart3d(root.querySelector("canvas.h3d"), { axes: "horizontal", frontal: false, view: "unten", height: 0.75 });
     const slider = root.querySelector(".rot"), rotOut = root.querySelector(".rot-out");
     const readout = root.querySelector(".readout");
     const PRE = {
@@ -165,6 +173,7 @@
       readout.innerHTML = `Umschlagzone (R ≥ S erstmals): <b>${tz}</b> – ${where}. R-Amplituden: ` +
         ["V1", "V2", "V3", "V4", "V5", "V6"].map((l) => `${l} ${A[l].R.toFixed(1).replace(".", ",")}`).join(" · ") + " mV.";
       cv.redraw();
+      h3.set({ horizRot: +slider.value, loops: [{ pts: U.loop3d(beat, beat.qrsOn - 2, beat.qrsOff + 4) }], vec: U.meanQRS(beat) });
     }
     U.segButtons(root.querySelector(".pre"), Object.entries(PRE).map(([k, v]) => [k, v.t]), "normal");
     U.seg(root.querySelector(".pre"), (v) => { pre = v; update(); });

@@ -352,11 +352,12 @@
       <div class="ctrl"><span class="lbl">Anordnung</span><div class="seg order"><button type="button" data-v="std" aria-pressed="true">Standard</button><button type="button" data-v="cab">Cabrera</button></div></div>
       <label class="check"><input type="checkbox" class="pt" checked> P- und T-Schleife</label>
     </div>
-    <div class="fig-body split">
-      <div class="panel"><svg class="loop" role="img" aria-label="Frontale Vektorschleife mit aktuellem Summationsvektor"></svg></div>
-      <div class="panel"><canvas class="ecg-canvas"></canvas></div>
+    <div class="fig-body split-even">
+      <div class="panel"><div class="panel-label">Das Herz im Raum</div><canvas class="h3d"></canvas></div>
+      <div class="panel"><div class="panel-label">Projektion auf die Frontalebene</div><svg class="loop" role="img" aria-label="Frontale Vektorschleife mit aktuellem Summationsvektor"></svg></div>
     </div>
-    <figcaption>Blauer Pfeil: Summationsvektor zum aktuellen Zeitpunkt. Hellblau: mittlere QRS-Achse (aus den QRS-Flächen in I und aVF berechnet). Die P-Schleife ist 4-fach vergrößert. Ableitungen mit 50 mm/s. Dreh die Herzachse und beobachte, welche Ableitung gerade senkrecht zur Achse steht – dort wird der QRS klein und biphasisch.</figcaption>
+    <div class="panel" style="margin-top:.8rem"><div class="panel-label">Extremitätenableitungen</div><canvas class="ecg-canvas"></canvas></div>
+    <figcaption>Links das Herz im Brustkorb (zum Drehen ziehen oder Ansicht wählen). Der blaue Pfeil ist der Summationsvektor im Raum. Seine Schatten auf der Frontalebene (hinten) und der Horizontalebene (unten) sind genau das, was die Extremitäten- bzw. Brustwandableitungen „sehen“; gestrichelt die QRS-Schleife als Projektion. Rechts dieselbe Projektion als Hexaxialsystem. Hellblau: mittlere QRS-Achse (aus den QRS-Flächen in I und aVF berechnet). Die P-Schleife ist 4-fach vergrößert. Ableitungen mit 50 mm/s. Dreh die Herzachse und beobachte, welche Ableitung gerade senkrecht zur Achse steht – dort wird der QRS klein und biphasisch.</figcaption>
   </figure>
 
   <div class="prose">
@@ -645,11 +646,12 @@
     </div>
     <div class="controls"><div class="seg types"></div></div>
     <div class="fig-body split-even">
-      <div class="panel"><svg role="img" aria-label="Hexaxialsystem mit Lagetyp-Sektoren"></svg></div>
-      <div class="panel"><canvas class="ecg-canvas" aria-label="Extremitätenableitungen in Cabrera-Reihenfolge"></canvas></div>
+      <div class="panel"><div class="panel-label">Das Herz im Raum</div><canvas class="h3d"></canvas></div>
+      <div class="panel"><div class="panel-label">Frontalebene: Lagetyp-Sektoren</div><svg role="img" aria-label="Hexaxialsystem mit Lagetyp-Sektoren"></svg></div>
     </div>
+    <div class="panel" style="margin-top:.8rem"><canvas class="ecg-canvas" aria-label="Extremitätenableitungen in Cabrera-Reihenfolge"></canvas></div>
     <div class="readout" aria-live="polite"></div>
-    <figcaption>Im Modus „Üben“ wird eine zufällige Achse erzeugt (nicht genau auf einer Grenze); die Trefferquote wird nur in deinem Browser gespeichert. Die Achse ist aus der QRS-Fläche in I und aVF berechnet.</figcaption>
+    <figcaption>Das 3D-Herz dreht sich mit der Achse mit; der blaue Pfeil ist der mittlere QRS-Vektor, sein Schatten auf der Frontalebene die QRS-Achse. Im Modus „Üben“ wird eine zufällige Achse erzeugt (nicht genau auf einer Grenze); die Trefferquote wird nur in deinem Browser gespeichert. Die Achse ist aus der QRS-Fläche in I und aVF berechnet.</figcaption>
   </figure>
 
   <div class="two-col">
@@ -671,7 +673,11 @@
       <div class="ctrl"><label for="rot5">Drehung um die Längsachse</label><input id="rot5" class="rot" type="range" min="-45" max="45" value="0"><output class="rot-out"></output></div>
     </div>
     <canvas class="ecg-canvas" aria-label="Brustwandableitungen V1 bis V6"></canvas>
-    <div class="readout" aria-live="polite"></div>
+    <div class="fig-body split-even" style="margin-top:.7rem">
+      <div class="panel"><div class="panel-label">Horizontalebene im Raum (Blick von unten)</div><canvas class="h3d"></canvas></div>
+      <div class="panel"><div class="readout" aria-live="polite"></div>
+        <p class="caption" style="margin-top:.6rem">Die Brustwandableitungen „sehen“ die Projektion des QRS-Vektors auf die Horizontalebene. Dreht sich der Vektor nach vorn (anterior), wachsen die R-Zacken in V1–V3 früher; dreht er nach hinten, verschiebt sich die Umschlagzone nach V5/V6.</p></div>
+    </div>
     <figcaption>Positive Drehung verlagert den Vektor nach vorn (frühere Umschlagzone), negative nach hinten (spätere Umschlagzone). Die Umschlagzone ist hinterlegt.</figcaption>
   </figure>
 
@@ -1094,8 +1100,11 @@
     <div class="ecg-scroll"><canvas class="ecg-canvas main" aria-label="12-Kanal-EKG mit ST-Analyse"></canvas></div>
     <div class="panel-label" style="margin-top:.5rem">Zusatzableitungen</div>
     <div class="ecg-scroll"><canvas class="ecg-canvas extra" aria-label="Rechtspräkordiale und posteriore Ableitungen"></canvas></div>
-    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
-    <figcaption>Rot hinterlegt: ST-Hebung, die den Grenzwert in zwei benachbarten Ableitungen erreicht. Grau: ST-Senkung. Werte am J-Punkt gegenüber der PQ-Strecke. Modell eines typischen Rechtsversorgungstyps; im Einzelfall variiert das Muster mit Anatomie, Kollateralen und Vorerkrankungen.</figcaption>
+    <div class="fig-body split-even" style="margin-top:.6rem">
+      <div class="readout" aria-live="polite"></div>
+      <div class="panel"><div class="panel-label">Verletzungsvektor im Raum</div><canvas class="h3d"></canvas></div>
+    </div>
+    <figcaption>Im 3D-Bild ist das ischämische Wandareal rot markiert. Der rote Pfeil zeigt die Richtung der ST-Verschiebung („Verletzungsvektor“, 4-fach vergrößert): Ableitungen, auf deren positiven Pol er zeigt, haben eine ST-Hebung, gegenüberliegende eine Senkung. Rot hinterlegt: ST-Hebung, die den Grenzwert in zwei benachbarten Ableitungen erreicht. Grau: ST-Senkung. Werte am J-Punkt gegenüber der PQ-Strecke. Modell eines typischen Rechtsversorgungstyps; im Einzelfall variiert das Muster mit Anatomie, Kollateralen und Vorerkrankungen.</figcaption>
   </figure>
 
   <div class="prose">
@@ -1465,6 +1474,7 @@
 
 <script src="assets/js/ecg-model.js"></script>
 <script src="assets/js/common.js"></script>
+<script src="assets/js/heart3d.js"></script>
 <script src="assets/js/ch01.js"></script>
 <script src="assets/js/ch02.js"></script>
 <script src="assets/js/rhythms.js"></script>

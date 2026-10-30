@@ -283,7 +283,7 @@
     const root = document.getElementById("fig-2c");
     if (!root) return;
     const svg = root.querySelector("svg.loop");
-    const canvas = root.querySelector("canvas");
+    const canvas = root.querySelector("canvas.ecg-canvas");
     const tS = root.querySelector(".time"), tO = root.querySelector(".time-out");
     const rotS = root.querySelector(".rot"), rotO = root.querySelector(".rot-out");
     const axisOut = root.querySelector(".axis-out");
@@ -306,8 +306,9 @@
     const lblT = el("text", { class: "sk-label small", style: "fill:var(--violet)", text: "T" }, svg);
     el("text", { x: 8, y: 20, class: "sk-label", text: "Vektorschleife (frontal)" }, svg);
 
-    let t = 160, speed = 0.12, order = "std", beat, sig, k;
+    let t = 160, speed = 0.12, order = "std", beat, sig, k, k3 = null;
     const SC = R / 1.75;
+    const h3 = U.heart3d(root.querySelector("canvas.h3d"), { axes: "frontal", view: "schräg" });
     function compute() {
       beat = EKG.makeBeat({ axis: +rotS.value });
       const leads = ["I", "II", "III", "aVR", "aVL", "aVF"];
@@ -328,18 +329,30 @@
         lbl.setAttribute("x", p[0] + (dx / L) * 14 - 8); lbl.setAttribute("y", p[1] + (dyy / L) * 14 + dy); };
       place(lblP, pm, 4); place(lblT, tm, 6);
       rotO.textContent = (+rotS.value > 0 ? "+" : "") + rotS.value + "°";
+      k3 = { q: U.loop3d(beat, beat.qrsOn - 2, beat.qrsOff + 4), p: U.loop3d(beat, 0, 104), tt: U.loop3d(beat, beat.qrsOff + 60, beat.tEnd + 10) };
     }
-    const cv = U.canvas(canvas, (w) => (w < 480 ? 6 * 74 + 20 : 3 * 112 + 20), draw);
+    function update3d() {
+      const inP = t < 110;
+      const H = beat.vec(t);
+      const nDone = Math.max(0, Math.round((t - (beat.qrsOn - 2)) / 2));
+      const loops = [{ pts: k3.q, color: U.cssVar("--ink"), width: 1.2, alpha: 0.35 }];
+      if (nDone > 1) loops.push({ pts: k3.q.slice(0, nDone), color: U.cssVar("--accent"), width: 2.4, proj: false });
+      if (showPT.checked) {
+        loops.push({ pts: k3.p, scale: 4, color: U.cssVar("--blue"), width: 1.2, alpha: 0.7, proj: false });
+        loops.push({ pts: k3.tt, color: U.cssVar("--violet"), width: 1.2, alpha: 0.7, proj: false });
+      }
+      h3.set({ frontRot: +rotS.value, loops, vec: Math.hypot(...H) * (inP ? 4 : 1) > 0.04 ? H : null, vecScale: inP ? 4 : 1 });
+    }
+    const cv = U.canvas(canvas, (w) => (w < 480 ? 6 * 74 + 20 : w > 900 ? 2 * 150 + 20 : 3 * 112 + 20), draw);
     function draw(ctx, w, h) {
       ctx.clearRect(0, 0, w, h);
       const names = order === "std" ? ["I", "II", "III", "aVR", "aVL", "aVF"] : ["aVL", "I", "-aVR", "II", "aVF", "III"];
-      const cols = w < 480 ? 1 : 2, rows = 6 / cols;
+      const cols = w < 480 ? 1 : w > 900 ? 3 : 2, rows = 6 / cols;
       const cw = (w - 8 * (cols + 1)) / cols, rh = (h - 12) / rows;
       const pxmm = cw / ((WIN / 1000) * 50);
       names.forEach((nm, i) => {
-        const c = order === "std" ? Math.floor(i / 3) : Math.floor(i / 3);
-        const r = i % 3;
-        const col = cols === 1 ? 0 : c, row = cols === 1 ? i : r;
+        const col = cols === 1 ? 0 : cols === 3 ? i % 3 : Math.floor(i / 3);
+        const row = cols === 1 ? i : cols === 3 ? Math.floor(i / 3) : i % 3;
         const x0 = 8 + col * (cw + 8), y = 6 + row * rh;
         U.paper(ctx, x0, y, cw, rh - 6, pxmm);
         const y0 = y + (rh - 6) * 0.6;
@@ -364,7 +377,7 @@
       tS.value = Math.round(t); tO.textContent = Math.round(t) + " ms";
       const vis = showPT.checked ? "" : "none";
       loopP.style.display = vis; loopT.style.display = vis; lblP.style.display = vis; lblT.style.display = vis;
-      cv.redraw();
+      cv.redraw(); update3d();
     }
     const loop = U.loop(root, (dt) => setT(t + dt * speed));
     const setPlaying = (on) => { on ? loop.play() : loop.pause(); playBtn.textContent = on ? "❚❚ Pause" : "▶ Abspielen"; };

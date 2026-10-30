@@ -405,3 +405,38 @@ table.idx tr.pos td { color: var(--danger); }
 .ctrl { flex-wrap: wrap; max-width: 100%; }
 input[type="range"], input[type="range"].wide-200 { max-width: min(13rem, 62vw); }
 @media (max-width: 560px) { .ctrl output { min-width: 0 !important; } .controls { gap: .5rem .8rem; } }
+
+/* ---------- Ein-Kapitel-Ansicht: Kapitelleiste unten (wie intro2echo) ---------- */
+body { padding-bottom: 92px; }
+body.is-chapter .chapter { border-top: 0; padding-top: 2rem; }
+section.chapter[hidden], .hero[hidden], nav.toc[hidden] { display: none !important; }
+.chapbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--rule);
+}
+.chapbar-inner { overflow-x: auto; scrollbar-width: thin; padding: .45rem max(16px, calc((100vw - 76rem) / 2)) .35rem; }
+.chapbar-row { display: flex; gap: 1.1rem; align-items: flex-end; width: max-content; position: relative; }
+.cb-group { display: flex; flex-direction: column; gap: .15rem; }
+.cb-g { font: 600 .62rem var(--f-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); border-top: 2px solid var(--ink); padding-top: .25rem; white-space: nowrap; }
+.cb-home .cb-g { border-top-color: transparent; }
+.cb-items { display: flex; gap: .7rem; }
+.cb-item { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); line-height: 1.1; padding: .1rem 0; }
+.cb-item:hover { color: var(--accent); }
+.cb-n { font: 500 .7rem var(--f-mono); color: var(--accent); }
+.cb-t { font: 400 1.02rem var(--f-head); white-space: nowrap; }
+.cb-item.on .cb-t { font-weight: 600; }
+.cb-item.on { color: var(--ink); }
+.cb-item.on .cb-n { color: var(--accent); font-weight: 600; }
+.cb-track { position: relative; height: 14px; margin-top: .25rem; width: max-content; min-width: 100%; }
+.cb-line { position: absolute; left: 0; right: 0; top: 6px; border-top: 1.5px solid var(--rule); }
+.cb-dot { position: absolute; top: 1px; left: var(--x, 0); width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--accent); background: var(--paper-2); transition: left .35s ease; }
+@media (max-width: 640px) { body { padding-bottom: 84px; } .cb-t { font-size: .92rem; } .cb-items { gap: .55rem; } .chapbar-row { gap: .8rem; } }
+@media print { .chapbar { display: none; } }
+
+/* ---------- 3D-Herz ---------- */
+.h3d-bar { display: flex; flex-wrap: wrap; gap: .4rem .9rem; align-items: center; margin-bottom: .4rem; }
+.h3d-bar .seg button { padding: .22rem .5rem; min-height: 28px; font-size: .8rem; }
+.h3d-hint { margin-left: auto; }
+canvas.h3d { display: block; width: 100%; border-radius: 6px; border: 1px solid var(--rule); }

@@ -66,6 +66,7 @@
     const resize = (force) => {
       const w = canvas.clientWidth || canvas.parentElement.clientWidth;
       if (force !== true && w === state.w && state.w) return; // nur auf Breitenänderungen reagieren
+      if (w < 40) return; // versteckt (anderes Kapitel aktiv)
       const h = typeof aspectOrHeight === "function" ? aspectOrHeight(w) : aspectOrHeight;
       const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
       canvas.style.height = h + "px";
@@ -224,15 +225,7 @@
   // ---------- Navigation, Fortschritt, Thema ----------
   U.initChrome = function () {
     U.installDefs();
-    const sel = document.getElementById("chapter-select");
-    if (sel) {
-      sel.addEventListener("change", () => { if (sel.value) location.hash = sel.value; });
-      const chapters = [...document.querySelectorAll("section.chapter[id]")];
-      const io = new IntersectionObserver((es) => {
-        es.forEach((e) => { if (e.isIntersecting) sel.value = e.target.id; });
-      }, { rootMargin: "-40% 0px -55% 0px" });
-      chapters.forEach((c) => io.observe(c));
-    }
+    U.initRouter();
     const pill = document.getElementById("progress-pill");
     const updateProgress = () => {
       if (!pill) return;
@@ -253,6 +246,83 @@
         const next = dark ? "light" : "dark"; U.store.set("theme", next); apply(next);
       });
     }
+  };
+
+  // ---------- Ein-Kapitel-Ansicht ----------
+  const CHAPTERS = [
+    ["erregung", "01", "Erregung", "Grundlagen"], ["vektor", "02", "Dipol", "Grundlagen"], ["ableitungen", "03", "Ableitungen", "Grundlagen"],
+    ["zeiten", "04", "Zeiten", "Grundlagen"], ["lagetyp", "05", "Lagetyp", "Grundlagen"],
+    ["befundung", "06", "Befundschema", "Befundung"],
+    ["brady", "07", "AV-Block", "Pathologien"], ["schenkel", "08", "Schenkel", "Pathologien"], ["svt", "09", "SVT", "Pathologien"],
+    ["vt", "10", "VT", "Pathologien"], ["ischaemie", "11", "Infarkt", "Pathologien"], ["hypertrophie", "12", "Hypertrophie", "Pathologien"],
+    ["elektrolyte", "13", "Mimics", "Pathologien"], ["schrittmacher", "14", "Schrittmacher", "Pathologien"],
+    ["faelle", "15", "Fallklinik", "Übung"],
+  ];
+  U.CHAPTERS = CHAPTERS;
+  U.initRouter = function () {
+    const sel = document.getElementById("chapter-select");
+    const home = [...document.querySelectorAll(".hero, nav.toc")];
+    const sections = Object.fromEntries(CHAPTERS.map(([id]) => [id, document.getElementById(id)]));
+    // Kapitelleiste unten
+    const bar = document.createElement("nav");
+    bar.className = "chapbar"; bar.setAttribute("aria-label", "Kapitel");
+    const groups = [];
+    CHAPTERS.forEach(([id, n, t, g]) => { let G = groups.find((x) => x.g === g); if (!G) groups.push((G = { g, items: [] })); G.items.push([id, n, t]); });
+    bar.innerHTML = `<div class="chapbar-inner"><div class="chapbar-row">` +
+      `<div class="cb-group cb-home"><div class="cb-g">&nbsp;</div><a href="#top" class="cb-item" data-id="top"><span class="cb-n">⌂</span><span class="cb-t">Start</span></a></div>` +
+      groups.map((G) => `<div class="cb-group"><div class="cb-g">${G.g}</div><div class="cb-items">${G.items.map(([id, n, t]) =>
+        `<a href="#${id}" class="cb-item" data-id="${id}"><span class="cb-n">${n}</span><span class="cb-t">${t}</span></a>`).join("")}</div></div>`).join("") +
+      `</div><div class="cb-track"><span class="cb-line"></span><span class="cb-dot"></span></div></div>`;
+    document.body.appendChild(bar);
+    const scroller = bar.querySelector(".chapbar-inner");
+    let current = null;
+    function show(id, target, noScroll) {
+      const isChap = !!sections[id];
+      for (const [cid, el] of Object.entries(sections)) if (el) el.hidden = cid !== id;
+      home.forEach((el) => (el.hidden = isChap));
+      document.body.classList.toggle("is-chapter", isChap);
+      if (sel) sel.value = isChap ? id : "top";
+      bar.querySelectorAll(".cb-item").forEach((a) => a.classList.toggle("on", a.dataset.id === (isChap ? id : "top")));
+      // Fortschrittspunkt
+      const on = bar.querySelector(".cb-item.on"), track = bar.querySelector(".cb-track");
+      if (on) {
+        const r = on.getBoundingClientRect(), rr = bar.querySelector(".chapbar-row").getBoundingClientRect();
+        const x = r.left - rr.left + 6;
+        track.style.setProperty("--x", x + "px"); track.style.width = bar.querySelector(".chapbar-row").scrollWidth + "px";
+        const sr = scroller.getBoundingClientRect();
+        if (r.left < sr.left + 20 || r.right > sr.right - 20) scroller.scrollTo({ left: Math.max(0, x - sr.width / 2), behavior: "smooth" });
+      }
+      if (current !== id) {
+        current = id;
+        const title = isChap ? sections[id].querySelector("h2")?.textContent : null;
+        document.title = title ? `${title} · EKG verstehen` : "EKG verstehen";
+        document.dispatchEvent(new CustomEvent("ekg-chapter", { detail: { id } }));
+      }
+      if (noScroll) return;
+      if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+      else window.scrollTo(0, 0);
+    }
+    function route() {
+      const h = decodeURIComponent(location.hash.slice(1));
+      if (!h || h === "top") return show("top");
+      if (sections[h]) return show(h);
+      const el = document.getElementById(h);
+      const chap = el && el.closest("section.chapter");
+      if (chap) return show(chap.id, el);
+      show("top");
+    }
+    window.addEventListener("hashchange", route);
+    if (sel) sel.addEventListener("change", () => { location.hash = sel.value || "top"; });
+    document.addEventListener("keydown", (e) => {
+      if (e.target.closest("input, select, textarea, [contenteditable]") || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "]" && e.key !== "[") return;
+      if (e.target.closest("[role=slider], .seg, .steps")) return;
+      const ids = ["top", ...CHAPTERS.map((c) => c[0])], i = ids.indexOf(current);
+      const j = (e.key === "ArrowRight" || e.key === "]") ? Math.min(ids.length - 1, i + 1) : Math.max(0, i - 1);
+      if (j !== i) { e.preventDefault(); location.hash = ids[j]; }
+    });
+    window.addEventListener("resize", () => current && show(current, null, true));
+    route();
   };
 
   window.U = U;

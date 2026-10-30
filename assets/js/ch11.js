@@ -63,6 +63,7 @@
     const root = document.getElementById("fig-11a");
     if (!root) return;
     const canvas = root.querySelector("canvas.main"), canvas2 = root.querySelector("canvas.extra");
+    const h3 = U.heart3d(root.querySelector("canvas.h3d"), { axes: null, view: "schräg", height: 0.9 });
     const readout = root.querySelector(".readout"), stageS = root.querySelector(".stage"), stageO = root.querySelector(".stage-out");
     const sexSel = root.querySelector(".sex");
     U.segButtons(root.querySelector(".terr"), Object.entries(TERR).map(([k, v]) => [k, v.t]), "ladProx");
@@ -123,6 +124,9 @@
           : `<p><b>Keine ST-Hebungskriterien</b> im 12-Kanal-EKG erfüllt.</p>`;
       readout.innerHTML = `<span class="tag">${T.t}</span>${T.txt} <span class="caption">Typisch: ${T.artery}.</span>${verdict}` + (!noStage ? `<p class="caption">${STAGES[stage].txt}</p>` : "");
       cv.redraw(); cv2.redraw();
+      const stv = o.stVec && Math.hypot(...o.stVec) > 0.01 ? o.stVec : null;
+      h3.set({ loops: [{ pts: U.loop3d(beat, beat.qrsOn - 2, beat.qrsOff + 4), color: U.cssVar("--ink-faint"), width: 1, alpha: 0.6, proj: false }],
+        vec: null, vec2: stv, vec2Scale: 4, highlight: TERR[key] && !TERR[key].noStage ? TERR[key].dir : (key === "lm" ? null : (stv ? EKG.mul(stv, -1) : [0.05, 0.1, 0.95])) });
     }
     U.seg(root.querySelector(".terr"), (v) => { key = v; root.querySelectorAll(".spec button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === "none"))); update(); });
     U.seg(root.querySelector(".spec"), (v) => { if (v === "none") return; key = v; root.querySelectorAll(".terr button").forEach((b) => b.setAttribute("aria-pressed", "false")); update(); });

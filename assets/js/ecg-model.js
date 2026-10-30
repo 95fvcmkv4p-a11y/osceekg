@@ -312,7 +312,7 @@
 
   const EKG = {
     D2R, norm, add, sub, mul, dot, rotFrontal, rotHorizontal, smoothstep,
-    ELECTRODES, LEAD_VECTORS, LEADS, LIMB_LEADS, CABRERA, FRONTAL_ANGLE, CONTIGUOUS, NORMAL, PRESETS, VENT,
+    ELECTRODES, LEAD_VECTORS, PRECORDIAL, LEADS, LIMB_LEADS, CABRERA, FRONTAL_ANGLE, CONTIGUOUS, NORMAL, PRESETS, VENT,
     leadValue, makeBeat, render, regular, qtForRR, analyzeBeat, comp: C,
     frontalAngle: (H) => Math.atan2(H[1], H[0]) / D2R,
   };
