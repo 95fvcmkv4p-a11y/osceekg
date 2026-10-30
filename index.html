@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EKG verstehen</title>
+<meta name="description" content="Ein illustrierter, interaktiver Kurs zum 12-Kanal-EKG: Erregungsleitung, Vektoren, Ableitungen und systematische Befundung – mit Quellen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f6f7f9'/%3E%3Cpath d='M2 18h7l2-3 2 3h2l2-13 3 20 2-7h8' fill='none' stroke='%231f5a96' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="#top"><svg viewBox="0 0 34 18" aria-hidden="true"><path d="M1 11h7l2-2 2 2h2l2-9 3 14 2-5h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="brand-txt">EKG verstehen</span></a>
+  <span class="spacer"></span>
+  <span class="progress-pill" id="progress-pill"></span>
+  <label class="sr-only" for="chapter-select">Kapitel wählen</label>
+  <select id="chapter-select">
+    <option value="top">Übersicht</option>
+    <optgroup label="A · Grundlagen">
+      <option value="erregung">01 Erregung</option>
+      <option value="vektor">02 Vom Dipol zur Kurve</option>
+      <option value="ableitungen">03 Die 12 Ableitungen</option>
+      <option value="zeiten">04 Wellen, Strecken, Zeiten</option>
+      <option value="lagetyp">05 Lagetyp &amp; R-Progression</option>
+    </optgroup>
+    <optgroup label="B · Befundung">
+      <option value="befundung">06 Systematische Befundung</option>
+    </optgroup>
+    <optgroup label="C · Pathologien">
+      <option value="brady">07 Bradykardien &amp; AV-Blöcke</option>
+      <option value="schenkel">08 Schenkel- &amp; Faszikelblöcke</option>
+      <option value="svt">09 Schmalkomplex-Tachykardien</option>
+      <option value="vt">10 Ventrikuläre Rhythmen</option>
+      <option value="ischaemie">11 Ischämie &amp; Infarkt</option>
+      <option value="hypertrophie">12 Hypertrophie &amp; Belastung</option>
+      <option value="elektrolyte">13 Elektrolyte, Medikamente, Mimics</option>
+      <option value="schrittmacher">14 Schrittmacher-EKG</option>
+    </optgroup>
+    <optgroup label="D · Übung">
+      <option value="faelle">15 Fallklinik</option>
+    </optgroup>
+  </select>
+  <button id="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten">◐</button>
+</div>
+
+<header class="hero" id="top">
+  <div class="kicker">Ein illustrierter, interaktiver Kurs · 12-Kanal-EKG</div>
+  <h1>Das EKG <em>verstehen.</em></h1>
+  <p class="sub">Von der einzelnen Herzmuskelzelle über Vektoren und Ableitungen bis zur systematischen Befundung – zum Ausprobieren, Schritt für Schritt, mit Quellen.</p>
+  <svg class="hero-trace" id="hero-trace" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d=""/></svg>
+  <div class="hero-note">Jedes Kapitel: eine Abbildung zum Ausprobieren · Erklärung · Key Points · Selbsttest · Quellen</div>
+</header>
+
+<nav class="toc" aria-label="Kapitel">
+  <h2>Inhalt</h2>
+  <div class="toc-part">A · Grundlagen</div>
+  <div class="toc-grid">
+    <a class="toc-card done" href="#erregung"><span class="n">01</span><span class="t">Erregung</span><span class="d">Sinusknoten bis Purkinje, Aktionspotenziale, Ersatzzentren</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#vektor"><span class="n">02</span><span class="t">Vom Dipol zur Kurve</span><span class="d">Dipol, Summationsvektor, Projektion, Einthoven &amp; Goldberger</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#ableitungen"><span class="n">03</span><span class="t">Die 12 Ableitungen</span><span class="d">Elektrodenlage, Wilson, Fehlplatzierungen</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#zeiten"><span class="n">04</span><span class="t">Wellen, Strecken, Zeiten</span><span class="d">Normwerte, Ausmessen, QTc</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#lagetyp"><span class="n">05</span><span class="t">Lagetyp &amp; R-Progression</span><span class="d">Hauptvektor bestimmen, Umschlagzone</span><span class="st">bereit</span></a>
+  </div>
+  <div class="toc-part">B · Befundung</div>
+  <div class="toc-grid">
+    <a class="toc-card done" href="#befundung"><span class="n">06</span><span class="t">Systematische Befundung</span><span class="d">Die feste Reihenfolge – am Normal-EKG geübt</span><span class="st">bereit</span></a>
+  </div>
+  <div class="toc-part">C · Pathologien</div>
+  <div class="toc-grid">
+    <a class="toc-card done" href="#brady"><span class="n">07</span><span class="t">Bradykardien &amp; AV-Blöcke</span><span class="d">SA-Block, AV-Block I–III, Leiterdiagramm</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#schenkel"><span class="n">08</span><span class="t">Schenkel- &amp; Faszikelblöcke</span><span class="d">RSB, LSB, LAH, LPH</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#svt"><span class="n">09</span><span class="t">Schmalkomplex-Tachykardien</span><span class="d">VHF, Flattern, AVNRT, AVRT/WPW</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#vt"><span class="n">10</span><span class="t">Ventrikuläre Rhythmen</span><span class="d">VES, VT, Breitkomplex-Algorithmen</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#ischaemie"><span class="n">11</span><span class="t">Ischämie &amp; Infarkt</span><span class="d">STEMI, Lokalisation, Äquivalente</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#hypertrophie"><span class="n">12</span><span class="t">Hypertrophie &amp; Belastung</span><span class="d">Vorhöfe, LVH, RVH, Lungenembolie</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#elektrolyte"><span class="n">13</span><span class="t">Elektrolyte, Medikamente, Mimics</span><span class="d">Kalium, QT, Perikarditis, Brugada</span><span class="st">bereit</span></a>
+    <a class="toc-card done" href="#schrittmacher"><span class="n">14</span><span class="t">Schrittmacher-EKG</span><span class="d">Spikes, Modi, Fehlfunktionen</span><span class="st">bereit</span></a>
+  </div>
+  <div class="toc-part">D · Übung</div>
+  <div class="toc-grid">
+    <a class="toc-card done" href="#faelle"><span class="n">15</span><span class="t">Fallklinik</span><span class="d">30 echte EKGs (PTB-XL) selbst befunden</span><span class="st">bereit</span></a>
+  </div>
+</nav>
+
+<main>
+
+<!-- =============================================================== -->
+<section class="chapter" id="erregung">
+  <header class="ch-head">
+    <span class="ch-num">01</span>
+    <h2>Erregung</h2>
+    <p class="ch-sub">Erregungsbildung und Erregungsleitung <span class="en">cardiac conduction system</span></p>
+  </header>
+  <p class="lead">Jeder Herzschlag beginnt mit einer elektrischen Erregung, die in einer festen Reihenfolge durch das Herz läuft. Das EKG zeichnet diese Reihenfolge auf – aber nicht alles davon. Wer weiß, welches Ereignis welche Zacke erzeugt (und welches unsichtbar bleibt), versteht später fast jede Pathologie aus dem Ablauf heraus.</p>
+
+  <figure class="fig" id="fig-1a">
+    <div class="fig-title"><span class="fn">Abb. 1.1</span>Ein Herzschlag in Zeitlupe</div>
+    <div class="controls">
+      <button class="btn play" type="button">▶ Abspielen</button>
+      <div class="ctrl"><span class="lbl">Tempo</span>
+        <div class="seg speed"><button type="button" data-v="0.1">0,1×</button><button type="button" data-v="0.25" aria-pressed="true">0,25×</button><button type="button" data-v="0.5">0,5×</button><button type="button" data-v="1">1×</button></div>
+      </div>
+      <div class="ctrl"><label for="t1a">Zeit</label><input id="t1a" type="range" min="0" max="999" value="0"><output>0 ms</output></div>
+      <label class="check"><input type="checkbox" class="labels" checked> Beschriftung</label>
+    </div>
+    <div class="fig-body split">
+      <div class="panel"><div class="panel-label">Herz, frontal geschnitten (Blick von vorn)</div><svg class="heart" role="img" aria-label="Schema des Herzens mit Erregungsleitungssystem; erregte Bereiche werden gelb markiert"></svg>
+        <div class="legend"><span><i style="background:var(--ochre);opacity:.6"></i>depolarisiert</span><span><i style="background:var(--accent)"></i>Erregungsleitungssystem</span><span><i style="border-style:dashed"></i>gestrichelt: Grenze Endo-/Epikard</span></div>
+      </div>
+      <div class="panel"><div class="panel-label">Ableitung II mit Ereignis-Zeitleiste</div><canvas class="ecg-canvas"></canvas>
+        <div class="readout" aria-live="polite" style="margin-top:.7rem"></div>
+      </div>
+    </div>
+    <figcaption>Schematische Darstellung; Zeitpunkte gerundet und an Literaturwerten orientiert (Septum ≈ 160 ms, gesamte Kammern ≈ 230–250 ms nach Beginn der Vorhoferregung). Gestrichelte Balken: Ereignisse ohne sichtbare Zacke im Oberflächen-EKG. Papiervorschub hier 50 mm/s, damit die Phasen breiter werden.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Der Weg der Erregung</h3>
+      <p>Die Erregung entsteht im <b>Sinusknoten</b> <span class="en">sinoatrial node</span> an der Einmündung der V. cava superior in den rechten Vorhof. Von dort breitet sie sich über das Vorhofmyokard aus – zuerst über den rechten, über das <b>Bachmann-Bündel</b> dann über den linken Vorhof. Die Vorhöfe und Kammern sind durch das bindegewebige Herzskelett elektrisch voneinander isoliert; der einzige reguläre Weg führt über den <b>AV-Knoten</b> <span class="en">atrioventricular node</span>.</p>
+      <p>Im AV-Knoten wird die Erregung stark <b>verzögert</b>. Danach geht es sehr schnell über das <b>His-Bündel</b>, den rechten und linken <b>Tawara-Schenkel</b> <span class="en">bundle branches</span> und das <b>Purkinje-Netz</b> an die Innenseite des Kammermyokards.</p>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Struktur</th><th>Leitungsgeschwindigkeit</th></tr></thead>
+        <tbody>
+          <tr><td>Vorhofmyokard</td><td>≈ 0,5 m/s</td></tr>
+          <tr><td>AV-Knoten</td><td>≈ 0,05 m/s</td></tr>
+          <tr><td>Tawara-Schenkel</td><td>≈ 2 m/s</td></tr>
+          <tr><td>Purkinje-Fasern</td><td>≈ 4 m/s</td></tr>
+        </tbody></table></div>
+      <p class="caption">Größenordnungen nach Klabunde. Der Unterschied zwischen AV-Knoten und Purkinje-Fasern beträgt fast zwei Zehnerpotenzen.</p>
+      <p>Die AV-Verzögerung hat zwei Funktionen: Die Vorhöfe können sich kontrahieren und die Kammern zusätzlich füllen, bevor diese erregt werden. Und der AV-Knoten kann bei sehr schnellen Vorhoffrequenzen (z. B. Vorhofflimmern) nicht jede Erregung weiterleiten – er schützt die Kammern.</p>
+
+      <h3>Was das EKG sieht – und was nicht</h3>
+      <p>Das Oberflächen-EKG registriert nur Ereignisse, an denen <b>genügend Zellmasse gleichzeitig</b> beteiligt ist. Sinusknoten, AV-Knoten und His-Purkinje-System sind dafür zu klein. Ihre Aktivität „versteckt“ sich in isoelektrischen Abschnitten.</p>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>EKG-Abschnitt</th><th>Elektrisches Ereignis</th></tr></thead>
+        <tbody>
+          <tr><td><b>P-Welle</b></td><td>Depolarisation der Vorhöfe (rechts vor links)</td></tr>
+          <tr><td><b>PQ-Strecke</b> <span class="en">PR segment</span></td><td>Leitung durch AV-Knoten, His-Bündel, Tawara-Schenkel – im Oberflächen-EKG isoelektrisch</td></tr>
+          <tr><td><b>PQ-Zeit</b> <span class="en">PR interval</span></td><td>Beginn P bis Beginn QRS: gesamte atrioventrikuläre Überleitung</td></tr>
+          <tr><td><b>QRS-Komplex</b></td><td>Depolarisation der Kammern; die Vorhof-Repolarisation (Ta-Welle) geht darin unter</td></tr>
+          <tr><td><b>ST-Strecke</b></td><td>Kammern vollständig depolarisiert (Plateauphase) – keine Potenzialdifferenz, daher isoelektrisch</td></tr>
+          <tr><td><b>T-Welle</b></td><td>Repolarisation der Kammern</td></tr>
+          <tr><td><b>QT-Zeit</b></td><td>„elektrische Systole“: Beginn der Kammer-Depolarisation bis Ende der Repolarisation</td></tr>
+          <tr><td><b>U-Welle</b></td><td>kleine Welle nach T, nicht immer sichtbar; ihre Entstehung ist nicht abschließend geklärt</td></tr>
+        </tbody></table></div>
+      <p>Normwerte und das korrekte Ausmessen dieser Zeiten folgen in <a href="#zeiten">Kapitel 4</a>.</p>
+
+      <h3>Erregungsablauf in den Kammern</h3>
+      <p>Durrer und Kollegen haben 1970 an isolierten menschlichen Herzen gemessen, wo die Kammererregung beginnt: an drei <b>endokardialen Arealen des linken Ventrikels</b> – hoch anterior paraseptal, zentral an der linken Septumoberfläche und posterior paraseptal. Diese Areale wurden innerhalb von 0–5 ms erregt und verschmolzen nach 15–20 ms. Die <b>posterobasale</b> Region des linken Ventrikels wurde meist zuletzt erregt.</p>
+      <p>Für das EKG folgen daraus zwei Regeln, die dir in jedem Kapitel wieder begegnen:</p>
+      <ul>
+        <li><b>Das Septum wird von links nach rechts erregt.</b> Der erste QRS-Vektor zeigt nach rechts (und vorn). Er erzeugt das kleine <i>septale q</i> in I, aVL, V5 und V6 sowie das kleine r in V1. Fehlt es, kann das z. B. auf einen Linksschenkelblock hinweisen (<a href="#schenkel">Kapitel 8</a>).</li>
+        <li><b>Die Kammerwand wird von endokardial nach epikardial erregt</b> – weil das Purkinje-Netz an der Innenseite liegt.</li>
+      </ul>
+
+      <h3>Zwei Arten von Aktionspotenzialen</h3>
+      <p>Arbeitsmyokard und Schrittmacherzellen funktionieren elektrisch grundverschieden. Abbildung 1.2 zeigt beide zeitgleich mit dem EKG.</p>
+    </div>
+    <aside class="margin-note">„Isoelektrisch“ heißt nicht „elektrisch still“ – es heißt nur, dass an der Körperoberfläche keine Spannung ankommt.</aside>
+  </div>
+
+  <figure class="fig" id="fig-1b">
+    <div class="fig-title"><span class="fn">Abb. 1.2</span>Aktionspotenziale und EKG</div>
+    <div class="controls">
+      <div class="ctrl"><label for="tone1b">Vagus</label><input id="tone1b" type="range" min="-1" max="1" step="0.05" value="0"><span class="lbl">Sympathikus</span><output>70 /min</output></div>
+      <label class="check"><input type="checkbox" class="ions" checked> Ionenströme</label>
+    </div>
+    <canvas class="ecg-canvas"></canvas>
+    <figcaption>Oben: Sinusknotenzelle (blaugrau). Mitte: Kammermyokard, Endokard (blau) und Epikard (grau gestrichelt). Unten: EKG in Ableitung II (25 mm/s). Der Regler verändert die Steilheit der diastolischen Depolarisation (Phase 4) und das maximale diastolische Potenzial (MDP) – qualitativ wie Sympathikus bzw. Vagus. Kurvenformen schematisch.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Arbeitsmyokard: stabil in Ruhe, schneller Aufstrich</h3>
+    <ul>
+      <li><b>Phase 4</b> – stabiles Ruhepotenzial um −85 bis −90 mV, getragen vom einwärts gleichrichtenden K⁺-Strom I<sub>K1</sub>.</li>
+      <li><b>Phase 0</b> – sehr schneller Aufstrich durch den Na⁺-Einstrom I<sub>Na</sub> (Na<sub>v</sub>1.5). Zeitlich entspricht er dem <b>QRS-Komplex</b>.</li>
+      <li><b>Phase 1</b> – kurze frühe Repolarisation durch I<sub>to</sub>; im Epikard ausgeprägter (Kerbe, „spike and dome“) als im Endokard.</li>
+      <li><b>Phase 2</b> – Plateau: Ca²⁺-Einstrom (I<sub>Ca,L</sub>) hält dem K⁺-Ausstrom (I<sub>Kr</sub>, I<sub>Ks</sub>) die Waage. Alle Kammerzellen sind depolarisiert → <b>ST-Strecke</b>.</li>
+      <li><b>Phase 3</b> – Repolarisation durch I<sub>Kr</sub>, I<sub>Ks</sub>, I<sub>K1</sub> → <b>T-Welle</b>.</li>
+    </ul>
+    <p>Die epikardialen Aktionspotenziale sind kürzer als die endokardialen. Die Repolarisation läuft deshalb von außen nach innen – entgegen der Depolarisation. Yan und Antzelevitch zeigten an Wandpräparaten, dass das Ende der epikardialen Repolarisation etwa mit dem <b>T-Gipfel</b> zusammenfällt und die längsten Aktionspotenziale (mittmyokardiale M-Zellen) mit dem <b>T-Ende</b>. Warum das eine positive T-Welle ergibt, zeigt <a href="#vektor">Kapitel 2</a>.</p>
+
+    <h3>Schrittmacherzellen: keine Ruhe, langsamer Aufstrich</h3>
+    <ul>
+      <li><b>Phase 4</b> – <i>diastolische Depolarisation</i>: Das Membranpotenzial steigt vom maximalen diastolischen Potenzial (≈ −60 mV) langsam zur Schwelle (≈ −40 mV). Beteiligt sind der „funny current“ I<sub>f</sub> (HCN4-Kanäle, aktiviert durch Hyperpolarisation), T-Typ-Ca²⁺-Ströme und die intrazelluläre Ca²⁺-Uhr mit dem Na⁺/Ca²⁺-Austauscher.</li>
+      <li><b>Phase 0</b> – langsamerer Aufstrich durch I<sub>Ca,L</sub> (schnelle Na⁺-Kanäle spielen im Sinusknoten kaum eine Rolle).</li>
+      <li><b>Phase 3</b> – Repolarisation durch K⁺-Ströme; Phasen 1 und 2 sind nicht abgrenzbar.</li>
+    </ul>
+    <p><b>Sympathikus</b> (β₁, cAMP) macht Phase 4 steiler → die Schwelle wird früher erreicht → Frequenz steigt. Der <b>Vagus</b> (Acetylcholin) flacht Phase 4 ab und hyperpolarisiert die Zelle (I<sub>K,ACh</sub>) → Frequenz sinkt. In Ruhe überwiegt der Vagus: Die tatsächliche Herzfrequenz liegt unter der <b>Eigenfrequenz</b> des Sinusknotens. Nach pharmakologischer Blockade von Sympathikus und Parasympathikus (Propranolol + Atropin) beschrieben Jose und Collison diese „intrinsische Herzfrequenz“ mit:</p>
+    <div class="formula">IHR ≈ 118,1 − 0,57 × Alter (Jahre)  →  mit 30 Jahren ≈ 101/min</div>
+  </div>
+
+  <figure class="fig" id="fig-1c">
+    <div class="fig-title"><span class="fn">Abb. 1.3</span>Hierarchie der Schrittmacher</div>
+    <div class="controls">
+      <div class="seg states"><button type="button" data-v="sinus" aria-pressed="true">Sinusrhythmus</button><button type="button" data-v="junc">Sinusknoten fällt aus</button><button type="button" data-v="vent">Kompletter Block unterhalb des AV-Knotens</button></div>
+    </div>
+    <canvas class="ecg-canvas"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.7rem"></div>
+    <figcaption>Modell-EKG, Ableitung II, 25 mm/s. Frequenzen der Ersatzzentren als typische Lehrbuchbereiche (Guyton &amp; Hall).</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Ersatzzentren</h3>
+    <p>Nicht nur der Sinusknoten kann spontan depolarisieren. Auch Zellen im Bereich des AV-Knotens und des His-Purkinje-Systems haben eine (langsamere) Phase-4-Depolarisation. Normalerweise kommen sie nie zum Zug: Der schnellere Sinusknoten erregt sie, bevor sie ihre eigene Schwelle erreichen, und unterdrückt sie dabei zusätzlich (<i>overdrive suppression</i>). Fällt ein höheres Zentrum aus oder ist die Leitung blockiert, springt das nächsttiefere ein:</p>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Zentrum</th><th>typische Frequenz</th><th>QRS</th></tr></thead>
+      <tbody>
+        <tr><td>Sinusknoten</td><td>Ruhefrequenz meist 60–100/min (vagal gebremst)</td><td>schmal, mit vorangehender P-Welle</td></tr>
+        <tr><td>AV-Junktion (AV-Knoten/His)</td><td>40–60/min</td><td>schmal (reguläre Kammererregung), P fehlt oder retrograd</td></tr>
+        <tr><td>Ventrikel (Purkinje/Myokard)</td><td>15–40/min</td><td>breit, T meist diskordant</td></tr>
+      </tbody></table></div>
+    <p>Je tiefer das Ersatzzentrum, desto langsamer und unzuverlässiger ist es – deshalb ist ein Block unterhalb des AV-Knotens gefährlicher als einer im AV-Knoten. Mehr dazu in <a href="#brady">Kapitel 7</a>.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Reihenfolge: Sinusknoten → Vorhöfe (P) → AV-Knoten mit Verzögerung (PQ-Strecke) → His → Tawara-Schenkel → Purkinje → Kammern (QRS).</li>
+      <li>Sinusknoten, AV-Knoten und His-Purkinje-System sind im Oberflächen-EKG unsichtbar; ihre Aktivität steckt in isoelektrischen Abschnitten.</li>
+      <li>Das Septum wird von links nach rechts erregt (septales q in I, aVL, V5/V6; r in V1), die Kammerwand von endo- nach epikardial.</li>
+      <li>Arbeitsmyokard: stabiles Ruhepotenzial, Aufstrich durch I<sub>Na</sub>. Sinusknoten: diastolische Depolarisation (I<sub>f</sub> u. a.), Aufstrich durch I<sub>Ca,L</sub>.</li>
+      <li>Ersatzzentren: AV-Junktion etwa 40–60/min mit schmalem QRS, ventrikulär etwa 15–40/min mit breitem QRS.</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="kap1"></div>
+
+  <details class="sources">
+    <summary>Quellen Kapitel 1</summary>
+    <ol>
+      <li>Klabunde RE. Normal and Abnormal Electrical Conduction. In: Cardiovascular Physiology Concepts. <a href="https://cvphysiology.com/arrhythmias/a003">cvphysiology.com/arrhythmias/a003</a> – Leitungsgeschwindigkeiten, zeitlicher Ablauf.</li>
+      <li>Durrer D, van Dam RT, Freud GE, Janse MJ, Meijler FL, Arzbaecher RC. Total excitation of the isolated human heart. <i>Circulation</i> 1970;41:899–912. <a href="https://doi.org/10.1161/01.CIR.41.6.899">doi:10.1161/01.CIR.41.6.899</a></li>
+      <li>Yan GX, Antzelevitch C. Cellular basis for the normal T wave and the electrocardiographic manifestations of the long-QT syndrome. <i>Circulation</i> 1998;98:1928–1936.</li>
+      <li>DiFrancesco D. The role of the funny current in pacemaker activity. <i>Circ Res</i> 2010;106:434–446. <a href="https://pubmed.ncbi.nlm.nih.gov/20167941/">PMID 20167941</a></li>
+      <li>Lakatta EG, Maltsev VA, Vinogradova TM. A coupled SYSTEM of intracellular Ca²⁺ clocks and surface membrane voltage clocks controls the timekeeping mechanism of the heart's pacemaker. <i>Circ Res</i> 2010;106:659–673.</li>
+      <li>Jose AD, Collison D. The normal range and determinants of the intrinsic heart rate in man. <i>Cardiovasc Res</i> 1970;4:160–167.</li>
+      <li>Hall JE, Hall ME. <i>Guyton and Hall Textbook of Medical Physiology</i>. 14. Aufl. Elsevier; 2021. Kapitel „Rhythmical Excitation of the Heart“.</li>
+      <li>Rautaharju PM, Surawicz B, Gettes LS et al. AHA/ACCF/HRS Recommendations for the standardization and interpretation of the electrocardiogram: Part IV: the ST segment, T and U waves, and the QT interval. <i>Circulation</i> 2009;119:e241–e250.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#top">↑ Übersicht</a><a href="#vektor">Kapitel 2: Vom Dipol zur Kurve →</a></nav>
+</section>
+
+<!-- =============================================================== -->
+<section class="chapter" id="vektor">
+  <header class="ch-head">
+    <span class="ch-num">02</span>
+    <h2>Vom Dipol zur Kurve</h2>
+    <p class="ch-sub">Dipol, Summationsvektor und Projektion <span class="en">dipole, heart vector, lead projection</span></p>
+  </header>
+  <p class="lead">Das EKG misst Spannungen zwischen Punkten an der Körperoberfläche. Woher die Spannungen kommen und warum dieselbe Erregung in einer Ableitung nach oben, in einer anderen nach unten ausschlägt, lässt sich mit einem einzigen Bild erklären: einem Pfeil, der sich im Brustkorb dreht. Wer dieses Bild verstanden hat, kann Lagetyp, Schenkelblöcke und Infarktlokalisation herleiten statt auswendig lernen.</p>
+
+  <figure class="fig" id="fig-2a">
+    <div class="fig-title"><span class="fn">Abb. 2.1</span>Ein Streifen Herzmuskel und eine Elektrode</div>
+    <div class="controls">
+      <div class="seg scen">
+        <button type="button" data-v="dep">Depolarisation</button>
+        <button type="button" data-v="same">Repol. gleiche Richtung</button>
+        <button type="button" data-v="rev">Repol. Gegenrichtung</button>
+        <button type="button" data-v="cycle" aria-pressed="true">Ganzer Zyklus</button>
+      </div>
+      <button class="btn play" type="button">▶ Abspielen</button>
+      <div class="ctrl"><label for="t2a">Ablauf</label><input id="t2a" type="range" min="0" max="1000" value="0"></div>
+    </div>
+    <svg role="img" aria-label="Muskelstreifen mit Ladungen außen und innen, Elektrode rechts, darunter die gemessene Spannung"></svg>
+    <div class="readout" aria-live="polite"></div>
+    <figcaption>Blau +, schwarz −: Ladung an der Zellaußenseite. In Ruhe ist die Außenseite positiv, nach der Depolarisation negativ. Ein Dipol entsteht nur dort, wo erregte und unerregte Zellen aneinandergrenzen. Vereinfachtes Modell.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Drei Regeln aus dem Muskelstreifen</h3>
+      <p>Eine ruhende Herzmuskelzelle ist außen positiv geladen. Bei der Depolarisation kehrt sich das um: außen negativ. Solange alle Zellen im gleichen Zustand sind, gibt es zwischen ihnen keine Spannung. Erst an der <b>Grenze</b> zwischen erregtem und unerregtem Gewebe entsteht ein elektrischer <b>Dipol</b>. Als Vektor gezeichnet zeigt er vom negativen zum positiven Pol.</p>
+      <ol>
+        <li><b>Depolarisation auf die Elektrode zu → positiver Ausschlag</b>, von ihr weg → negativer Ausschlag.</li>
+        <li><b>Kein Ausschlag</b>, wenn alle Zellen im gleichen Zustand sind – ganz in Ruhe (TP-Strecke) oder ganz erregt (ST-Strecke).</li>
+        <li><b>Repolarisation kehrt das Vorzeichen um:</b> In derselben Richtung wie die Depolarisation erzeugt sie einen gegensinnigen Ausschlag, in Gegenrichtung einen gleichsinnigen.</li>
+      </ol>
+      <h3>Warum die T-Welle normalerweise positiv ist</h3>
+      <p>Im Ventrikel läuft die Depolarisation von endokardial nach epikardial. Weil die epikardialen Aktionspotenziale kürzer sind (<a href="#erregung">Abb. 1.2</a>), repolarisiert das Epikard aber zuerst: Die Repolarisation läuft in <b>Gegenrichtung</b>. Nach Regel 3 hat die T-Welle deshalb dieselbe Polarität wie der Hauptausschlag des QRS – sie ist <b>konkordant</b>. Wird die Repolarisationsrichtung gestört (z. B. bei Schenkelblock oder Ischämie), ändert sich die T-Welle. Deshalb sind T-Veränderungen so aussagekräftig – und so unspezifisch.</p>
+    </div>
+    <aside class="margin-note">Die Elektrode „sieht“ nicht die Zellen selbst, sondern nur die Grenzflächen zwischen erregt und unerregt.</aside>
+  </div>
+
+  <div class="prose">
+    <h3>Vom einzelnen Dipol zum Summationsvektor</h3>
+    <p>Im Herzen laufen zu jedem Zeitpunkt viele Wellenfronten gleichzeitig. Für die Ableitungen an der Körperoberfläche lassen sie sich näherungsweise zu einem einzigen Pfeil zusammenfassen: dem <b>Summationsvektor</b> (Integralvektor, Herzvektor) <span class="en">heart vector</span>. Er ändert während jedes Herzschlags Richtung und Länge. Seine Spitze beschreibt dabei drei Schleifen – eine kleine für P, eine große für QRS und eine mittlere für T.</p>
+    <h3>Projektion: Was eine Ableitung „sieht“</h3>
+    <p>Jede Ableitung hat eine Achse mit einem positiven Pol. Der Ausschlag entspricht der <b>Projektion</b> des Summationsvektors auf diese Achse:</p>
+    <div class="formula">Ausschlag ∝ |H| · cos α   (α = Winkel zwischen Vektor und Ableitungsachse)</div>
+    <ul>
+      <li>Vektor <b>parallel</b> zur Achse, zum positiven Pol: maximal positiv (cos 0° = 1).</li>
+      <li>Vektor <b>senkrecht</b> zur Achse: kein Nettoausschlag (cos 90° = 0) – oft ein kleiner, biphasischer Komplex.</li>
+      <li>Vektor <b>antiparallel</b>: maximal negativ (cos 180° = −1).</li>
+    </ul>
+  </div>
+
+  <figure class="fig" id="fig-2b">
+    <div class="fig-title"><span class="fn">Abb. 2.2</span>Projektion auf die Extremitätenableitungen</div>
+    <div class="controls">
+      <div class="ctrl"><span class="lbl">Ableitung</span>
+        <div class="seg leads"><button type="button" data-v="I">I</button><button type="button" data-v="II">II</button><button type="button" data-v="III">III</button><button type="button" data-v="aVR">aVR</button><button type="button" data-v="aVL">aVL</button><button type="button" data-v="aVF">aVF</button></div>
+      </div>
+      <div class="ctrl"><label for="ang2b">Winkel</label><input id="ang2b" class="ang" type="range" min="-180" max="180" value="45"><output class="ang-out"></output></div>
+      <div class="ctrl"><label for="mag2b">Betrag</label><input id="mag2b" class="mag" type="range" min="15" max="100" value="85"><output class="mag-out"></output></div>
+    </div>
+    <div class="fig-body split-even">
+      <div class="panel"><svg class="proj" role="img" aria-label="Hexaxialsystem mit verschiebbarem Vektor; die Projektion auf die gewählte Ableitung ist rot markiert"></svg></div>
+      <div class="panel"><svg class="bars" role="img" aria-label="Ausschlag in allen sechs Extremitätenableitungen"></svg>
+        <div class="readout" aria-live="polite" style="margin-top:.6rem"></div></div>
+    </div>
+    <figcaption>Vektorspitze (hellblauer Kreis) ziehen oder die Regler benutzen; Pfeiltasten drehen in 5°-Schritten. Blau: Projektion auf die gewählte Ableitung. Die Balken zeigen die Projektion auf Einheitsachsen; im idealisierten Modell sind die Goldberger-Ableitungen tatsächlich um den Faktor √3/2 ≈ 0,87 kleiner – für die Richtungslogik spielt das keine Rolle.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Die sechs Extremitätenableitungen</h3>
+      <p>Die drei <b>bipolaren Ableitungen nach Einthoven</b> messen die Spannung zwischen je zwei Extremitätenelektroden:</p>
+      <div class="formula">I = LA − RA   ·   II = LL − RA   ·   III = LL − LA</div>
+      <p>Daraus folgt direkt das <b>Einthoven-Gesetz</b>: <b>II = I + III</b>. Es ist keine Näherung, sondern gilt zu jedem Zeitpunkt exakt, weil alle drei Ableitungen aus denselben drei Elektrodenpotenzialen gebildet werden. Die Extremitätenableitungen enthalten daher nur <b>zwei unabhängige</b> Informationen; die übrigen helfen beim räumlichen Lesen.</p>
+      <p>Die <b>Goldberger-Ableitungen</b> messen jeweils eine Elektrode gegen den Mittelwert der beiden anderen:</p>
+      <div class="formula">aVR = RA − (LA + LL)/2   ·   aVL = LA − (RA + LL)/2   ·   aVF = LL − (RA + LA)/2</div>
+      <p>Weil die untersuchte Elektrode nicht im Bezugspunkt enthalten ist, sind sie um etwa 50 % größer als die ursprünglichen Wilson-Extremitätenableitungen – daher „augmented“. Die AHA/ACCF/HRS-Empfehlungen raten davon ab, sie „unipolar“ zu nennen, denn auch sie messen eine Spannungsdifferenz.</p>
+      <p>Für die Brustwandableitungen V1–V6 dient die <b>Wilson Central Terminal</b> als Bezug, der Mittelwert aller drei Extremitätenelektroden: WCT = (RA + LA + LL)/3. Mehr dazu in <a href="#ableitungen">Kapitel 3</a>.</p>
+
+      <h3>Hexaxialsystem und Cabrera-Kreis</h3>
+      <p>Verschiebt man die sechs Achsen in den gemeinsamen Mittelpunkt, entsteht ein Stern mit 30°-Abständen. Konvention: 0° zeigt zur linken Körperseite (Ableitung I), +90° nach unten (aVF). Positive Winkel laufen im Uhrzeigersinn.</p>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>aVL</th><th>I</th><th>−aVR</th><th>II</th><th>aVF</th><th>III</th></tr></thead>
+        <tbody><tr><td>−30°</td><td>0°</td><td>+30°</td><td>+60°</td><td>+90°</td><td>+120°</td></tr></tbody></table></div>
+      <p>In dieser <b>Cabrera-Reihenfolge</b> liegen benachbarte Ableitungen auch räumlich nebeneinander, und aVR erscheint invertiert als −aVR (+30°). Die AHA/ACCF/HRS-Empfehlungen (2007) bezeichnen die routinemäßige Verwendung der Cabrera-Anzeige als <i>highly recommended</i>; in Skandinavien ist sie Standard.</p>
+    </div>
+    <aside class="margin-note">aVR schaut von rechts oben aufs Herz. Weil fast alles von ihr wegläuft, ist aVR im Normal-EKG überwiegend negativ – auch P und T.</aside>
+  </div>
+
+  <figure class="fig" id="fig-2c">
+    <div class="fig-title"><span class="fn">Abb. 2.3</span>Die Vektorschleife schreibt das EKG</div>
+    <div class="controls">
+      <button class="btn play" type="button">▶ Abspielen</button>
+      <div class="ctrl"><span class="lbl">Tempo</span><div class="seg speed"><button type="button" data-v="0.05">0,05×</button><button type="button" data-v="0.12" aria-pressed="true">0,12×</button><button type="button" data-v="0.4">0,4×</button></div></div>
+      <div class="ctrl"><label for="t2c">Zeit</label><input id="t2c" class="time" type="range" min="0" max="679" value="0"><output class="time-out"></output></div>
+    </div>
+    <div class="controls">
+      <div class="ctrl"><label for="rot2c">Herzachse drehen</label><input id="rot2c" class="rot" type="range" min="-100" max="110" value="0"><output class="rot-out"></output><button class="btn ghost reset" type="button">↺</button></div>
+      <div class="ctrl"><span class="lbl">QRS-Hauptachse:</span><output class="axis-out" style="min-width:12em"></output></div>
+      <div class="ctrl"><span class="lbl">Anordnung</span><div class="seg order"><button type="button" data-v="std" aria-pressed="true">Standard</button><button type="button" data-v="cab">Cabrera</button></div></div>
+      <label class="check"><input type="checkbox" class="pt" checked> P- und T-Schleife</label>
+    </div>
+    <div class="fig-body split">
+      <div class="panel"><svg class="loop" role="img" aria-label="Frontale Vektorschleife mit aktuellem Summationsvektor"></svg></div>
+      <div class="panel"><canvas class="ecg-canvas"></canvas></div>
+    </div>
+    <figcaption>Blauer Pfeil: Summationsvektor zum aktuellen Zeitpunkt. Hellblau: mittlere QRS-Achse (aus den QRS-Flächen in I und aVF berechnet). Die P-Schleife ist 4-fach vergrößert. Ableitungen mit 50 mm/s. Dreh die Herzachse und beobachte, welche Ableitung gerade senkrecht zur Achse steht – dort wird der QRS klein und biphasisch.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Was das Modell vereinfacht</h3>
+    <p>Diese Seite rechnet mit einem idealisierten <b>Dipolmodell</b>: ein punktförmiger Summationsvektor im Zentrum eines gleichseitigen Einthoven-Dreiecks. Real ist der Körper ein inhomogener Leiter; die tatsächlichen Ableitungsvektoren (Burger-Dreieck) sind weder gleich lang noch exakt 60° gegeneinander verdreht, und nah am Herzen liegende Brustwandelektroden „sehen“ auch lokale Anteile. Für das Verständnis von Richtungen und Polaritäten – und damit für die Befundung – trägt das Modell trotzdem sehr weit. Algebraische Beziehungen wie II = I + III gelten unabhängig vom Modell immer.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Ein Dipol entsteht nur an der Grenze zwischen erregtem und unerregtem Gewebe; er zeigt von − nach +.</li>
+      <li>Depolarisation zur Elektrode hin → positiv; Repolarisation in Gegenrichtung → ebenfalls positiv. Deshalb ist T normalerweise konkordant zum QRS.</li>
+      <li>Jede Ableitung zeigt die Projektion des Summationsvektors auf ihre Achse (|H| · cos α); senkrecht → kleiner, biphasischer Komplex.</li>
+      <li>Einthoven: I = LA−RA, II = LL−RA, III = LL−LA; daher immer II = I + III. Goldberger: eine Elektrode gegen den Mittelwert der beiden anderen.</li>
+      <li>Cabrera-Reihenfolge: aVL (−30°), I (0°), −aVR (+30°), II (+60°), aVF (+90°), III (+120°).</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="kap2"></div>
+
+  <details class="sources">
+    <summary>Quellen Kapitel 2</summary>
+    <ol>
+      <li>Kligfield P, Gettes LS, Bailey JJ et al. Recommendations for the standardization and interpretation of the electrocardiogram: Part I: The electrocardiogram and its technology. <i>Circulation</i> 2007;115:1306–1324 · <i>Heart Rhythm</i> 2007;4:394–412. <a href="https://hrsonline.org/guidance/clinical-resources/ahaaccfhrs-scientific-statement-recommendations-standardization-and-interpretation">HRS</a></li>
+      <li>Einthoven W, Fahr G, de Waart A. Über die Richtung und die manifeste Größe der Potentialschwankungen im menschlichen Herzen und über den Einfluss der Herzlage auf die Form des Elektrokardiogramms. <i>Pflügers Arch</i> 1913;150:275–315.</li>
+      <li>Goldberger E. A simple, indifferent, electrocardiographic electrode of zero potential and a technique of obtaining augmented, unipolar, extremity leads. <i>Am Heart J</i> 1942;23:483–492.</li>
+      <li>Wilson FN, Johnston FD, Macleod AG, Barker PS. Electrocardiograms that represent the potential variations of a single electrode. <i>Am Heart J</i> 1934;9:447–458.</li>
+      <li>Burger HC, van Milaan JB. Heart-vector and leads. <i>Br Heart J</i> 1946;8:157–161.</li>
+      <li>Yan GX, Antzelevitch C. Cellular basis for the normal T wave and the electrocardiographic manifestations of the long-QT syndrome. <i>Circulation</i> 1998;98:1928–1936.</li>
+      <li>Malmivuo J, Plonsey R. <i>Bioelectromagnetism</i>. Oxford University Press; 1995. Kapitel 15–16 (frei online: <a href="https://www.bem.fi/book/">bem.fi/book</a>).</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#erregung">← Kapitel 1</a><a href="#ableitungen">Kapitel 3: Die 12 Ableitungen →</a></nav>
+</section>
+
+<!-- Platzhalter für die folgenden Kapitel -->
+<section class="chapter" id="ableitungen">
+  <header class="ch-head">
+    <span class="ch-num">03</span>
+    <h2>Die 12 Ableitungen</h2>
+    <p class="ch-sub">Elektrodenlage, Blickrichtungen, Fehlplatzierungen <span class="en">lead placement</span></p>
+  </header>
+  <p class="lead">Zwölf Ableitungen aus nur zehn Elektroden: sechs blicken in der Frontalebene auf das Herz, sechs in der Horizontalebene. Wer weiß, wo jede Ableitung „hinschaut“, kann Befunde einem Wandabschnitt und einem Koronargefäß zuordnen – und erkennt vertauschte Elektroden, bevor sie zu Fehldiagnosen führen.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Zehn Elektroden, zwölf Ableitungen</h3>
+      <p>Vier Extremitätenelektroden liefern die sechs <b>Extremitätenableitungen</b> (I, II, III, aVR, aVL, aVF; Kapitel 2). Das rechte Bein dient als Neutralelektrode und trägt nicht zu den Ableitungen bei. Sechs <b>Brustwandelektroden</b> liefern V1–V6; sie messen jeweils gegen die Wilson Central Terminal, also den Mittelwert der drei Extremitätenelektroden.</p>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Elektrode</th><th>Position (AHA/ACCF/HRS 2007)</th></tr></thead>
+        <tbody>
+          <tr><td>V1</td><td>4. Interkostalraum (ICR) am rechten Sternalrand</td></tr>
+          <tr><td>V2</td><td>4. ICR am linken Sternalrand</td></tr>
+          <tr><td>V3</td><td>Mitte zwischen V2 und V4</td></tr>
+          <tr><td>V4</td><td>5. ICR, linke Medioklavikularlinie</td></tr>
+          <tr><td>V5</td><td>Höhe von V4, vordere Axillarlinie</td></tr>
+          <tr><td>V6</td><td>Höhe von V4, mittlere Axillarlinie</td></tr>
+          <tr><td>Extremitäten</td><td>Arme und Beine distal von Schultern und Hüften; Farbcode (IEC, Europa): rechter Arm rot, linker Arm gelb, linkes Bein grün, rechtes Bein schwarz</td></tr>
+        </tbody></table></div>
+      <p>Den 4. ICR findest du am sichersten über den <b>Angulus sterni</b> (Ludovici): Daneben liegt die 2. Rippe, darunter der 2. ICR – von dort zwei Zwischenräume abwärts zählen. Bei Frauen werden die Elektroden V4–V6 unter (nicht auf) der Brust angelegt.</p>
+    </div>
+    <aside class="margin-note">Merkhilfe für die Extremitäten: „Ampel“ im Uhrzeigersinn ab dem rechten Arm – rot, gelb, grün – und schwarz zum Schluss.</aside>
+  </div>
+
+  <figure class="fig" id="fig-3a">
+    <div class="fig-title"><span class="fn">Abb. 3.1</span>Elektrodenlage und typische Fehlanlagen</div>
+    <div class="controls"><div class="seg scen"></div></div>
+    <div class="fig-body split">
+      <div class="panel"><div class="panel-label">Elektroden (Blick von vorn)</div><svg class="torso" role="img" aria-label="Oberkörper mit Extremitäten- und Brustwandelektroden"></svg></div>
+      <div class="panel"><div class="panel-label">Resultierendes 12-Kanal-EKG</div><div class="ecg-scroll"><canvas class="ecg-canvas"></canvas></div><div class="readout" aria-live="polite" style="margin-top:.6rem"></div></div>
+    </div>
+    <figcaption>Dasselbe Herz, nur die Kabel sind vertauscht. Die betroffenen Ableitungen sind hinterlegt. Modell-EKG; reale Effekte können je nach Herzachse anders aussehen.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Typische Fehlanlagen erkennen</h3>
+    <ul>
+      <li><b>P-Welle in aVR positiv oder in I negativ</b> → an vertauschte Armelektroden denken (oder an eine Dextrokardie bzw. einen ektopen Vorhofrhythmus).</li>
+      <li><b>Eine Extremitätenableitung fast flach</b> → Neutralelektrode vertauscht.</li>
+      <li><b>Negative P-Welle und rSr′ in V1/V2</b> → V1/V2 zu hoch angelegt.</li>
+      <li><b>Unerklärte Veränderung gegenüber dem Vor-EKG</b>, die nicht zur Klinik passt → Elektrodenlage prüfen und neu ableiten, bevor du eine neue Diagnose stellst.</li>
+    </ul>
+    <p>In Studien war die Vertauschung der Armelektroden die häufigste Fehlanlage. Sie kann einen lateralen Infarkt, einen Rechtstyp oder eine Dextrokardie vortäuschen.</p>
+
+    <h3>Blickrichtungen und Koronargebiete</h3>
+    <p>Jede Ableitung „sieht“ den Herzabschnitt, auf den ihr positiver Pol zeigt. Benachbarte Ableitungen bilden Gruppen. Veränderungen in zwei <b>benachbarten</b> Ableitungen (<span class="en">contiguous leads</span>) sind die Grundlage der Infarktkriterien in Kapitel 11.</p>
+  </div>
+
+  <figure class="fig" id="fig-3b">
+    <div class="fig-title"><span class="fn">Abb. 3.2</span>Wohin die Ableitungen blicken</div>
+    <div class="controls"><div class="seg groups"></div></div>
+    <svg role="img" aria-label="Frontal- und Horizontalebene mit Ableitungsachsen; die gewählte Gruppe ist hervorgehoben"></svg>
+    <div class="readout" aria-live="polite"></div>
+    <figcaption>Gestrichelt: Zusatzableitungen V3R/V4R und V7–V9. Die Zuordnung zu Koronararterien gilt für den häufigen Rechtsversorgungstyp; die individuelle Anatomie variiert.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Gruppe</th><th>Ableitungen</th><th>Region</th><th>Gefäß (typisch)</th></tr></thead>
+      <tbody>
+        <tr><td>inferior</td><td>II, III, aVF</td><td>Hinter-/Unterwand</td><td>RCA, seltener RCX</td></tr>
+        <tr><td>septal</td><td>V1, V2</td><td>Septum</td><td>RIVA (Septaläste)</td></tr>
+        <tr><td>anterior</td><td>V3, V4</td><td>Vorderwand</td><td>RIVA</td></tr>
+        <tr><td>lateral</td><td>I, aVL, V5, V6</td><td>Seitenwand</td><td>RCX, Diagonaläste</td></tr>
+        <tr><td>rechtsventrikulär</td><td>V3R, V4R</td><td>rechter Ventrikel</td><td>proximale RCA</td></tr>
+        <tr><td>posterior</td><td>V7–V9 (spiegelbildlich V1–V3)</td><td>posterobasale Wand</td><td>RCX oder RCA</td></tr>
+      </tbody></table></div>
+    <p>Zusatzableitungen: <b>V7</b> hintere Axillarlinie, <b>V8</b> Skapularlinie (Spitze des Schulterblatts), <b>V9</b> links paravertebral – jeweils auf der Horizontalen von V6. <b>V3R und V4R</b> liegen spiegelbildlich zu V3 und V4 auf der rechten Thoraxseite.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>V1/V2: 4. ICR beidseits parasternal · V4: 5. ICR Medioklavikularlinie · V5/V6 auf derselben Höhe in vorderer bzw. mittlerer Axillarlinie.</li>
+      <li>Extremitäten (IEC): rot rechter Arm, gelb linker Arm, grün linkes Bein, schwarz rechtes Bein (Neutral).</li>
+      <li>Armvertauschung: I komplett negativ, aVR positiv, Brustwand normal. Dextrokardie: zusätzlich abnehmende R-Zacken V1→V6.</li>
+      <li>Fast flache Extremitätenableitung → Neutralelektrode vertauscht. Negative P in V1/V2 → V1/V2 zu hoch.</li>
+      <li>Gruppen: inferior II, III, aVF · lateral I, aVL, V5, V6 · septal V1–V2 · anterior V3–V4 · posterior V7–V9 · rechtsventrikulär V3R/V4R.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap3"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 3</summary>
+    <ol>
+      <li>Kligfield P, Gettes LS, Bailey JJ et al. Recommendations for the standardization and interpretation of the electrocardiogram: Part I. <i>Circulation</i> 2007;115:1306–1324. <a href="https://hrsonline.org/guidance/clinical-resources/ahaaccfhrs-scientific-statement-recommendations-standardization-and-interpretation">HRS</a></li>
+      <li>Batchvarov VN, Malik M, Camm AJ. Incorrect electrode cable connection during electrocardiographic recording. <i>Europace</i> 2007;9:1081–1090.</li>
+      <li>Byrne RA, Rossello X, Coughlan JJ et al. 2023 ESC Guidelines for the management of acute coronary syndromes. <i>Eur Heart J</i> 2023;44:3720–3826. <a href="https://academic.oup.com/eurheartj/article/44/38/3720/7243210">OUP</a> – Zusatzableitungen V7–V9, V3R/V4R.</li>
+      <li>Wagner GS, Macfarlane P, Wellens H et al. AHA/ACCF/HRS Recommendations for the standardization and interpretation of the electrocardiogram: Part VI: acute ischemia/infarction. <i>Circulation</i> 2009;119:e262–e270.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#vektor">← Kapitel 2</a><a href="#zeiten">Kapitel 4: Wellen, Strecken, Zeiten →</a></nav>
+</section>
+<section class="chapter" id="zeiten">
+  <header class="ch-head">
+    <span class="ch-num">04</span>
+    <h2>Wellen, Strecken, Zeiten</h2>
+    <p class="ch-sub">Ausmessen und Normwerte <span class="en">intervals and normal values</span></p>
+  </header>
+  <p class="lead">Viele Diagnosen sind am Ende eine Frage von Millisekunden: AV-Block I° oder normal? Schenkelblock oder nicht? QT verlängert? Dieses Kapitel zeigt, wie man auf dem EKG-Papier misst, welche Normwerte gelten und warum die QT-Zeit eine Frequenzkorrektur braucht.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Das EKG-Papier</h3>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th></th><th>25 mm/s (Standard)</th><th>50 mm/s</th></tr></thead>
+        <tbody>
+          <tr><td>1 mm (kleines Kästchen)</td><td>40 ms</td><td>20 ms</td></tr>
+          <tr><td>5 mm (großes Kästchen)</td><td>200 ms</td><td>100 ms</td></tr>
+          <tr><td>Verstärkung 10 mm/mV</td><td colspan="2">1 mm = 0,1 mV · Eichzacke 10 mm hoch</td></tr>
+        </tbody></table></div>
+      <h3>Frequenz bestimmen</h3>
+      <ul>
+        <li><b>300-Regel</b> (25 mm/s): 300 / Anzahl großer Kästchen zwischen zwei R-Zacken. 1 → 300, 2 → 150, 3 → 100, 4 → 75, 5 → 60, 6 → 50/min.</li>
+        <li><b>1500-Regel</b>: 1500 / Anzahl kleiner Kästchen – genauer.</li>
+        <li><b>Unregelmäßiger Rhythmus</b>: QRS-Komplexe im 10-Sekunden-Streifen zählen und mit 6 multiplizieren.</li>
+      </ul>
+    </div>
+    <aside class="margin-note">Bei 50 mm/s sieht alles doppelt so breit aus. Vor jeder Messung den Vorschub prüfen – sonst wird aus einem normalen QRS ein „Schenkelblock“.</aside>
+  </div>
+
+  <div class="prose">
+    <h3>Normwerte beim Erwachsenen</h3>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Messgröße</th><th>Wie messen</th><th>Normal</th><th>Auffällig, wenn …</th></tr></thead>
+      <tbody>
+        <tr><td>P-Welle</td><td>in II</td><td>&lt; 120 ms, ≤ 0,25 mV</td><td>breit/doppelgipflig (links), hoch/spitz (rechts)</td></tr>
+        <tr><td>PQ-Zeit</td><td>Beginn P bis Beginn QRS</td><td>120–200 ms</td><td>&gt; 200 ms: AV-Block I° · &lt; 120 ms: Präexzitation?</td></tr>
+        <tr><td>QRS-Dauer</td><td>breitester Komplex aller Ableitungen</td><td>≤ 110 ms</td><td>110–119 ms: inkompletter Block / unspezifisch · ≥ 120 ms: kompletter Schenkelblock</td></tr>
+        <tr><td>QT-Zeit</td><td>Beginn QRS bis Ende T, meist II oder V5</td><td colspan="2">frequenzabhängig → QTc</td></tr>
+        <tr><td>QTc</td><td>frequenzkorrigiert</td><td>&lt; 450 ms (♂), &lt; 460 ms (♀)</td><td>verlängert ab 450/460 ms; ≥ 500 ms hohes Risiko; ≤ 390 ms kurz</td></tr>
+      </tbody></table></div>
+    <p class="caption">Grenzwerte nach AHA/ACCF/HRS (Teile III und IV, 2009). Die AHA-Gruppe nennt für erwachsene Männer QRS-Dauern bis 110 ms als normal.</p>
+  </div>
+
+  <figure class="fig" id="fig-4a">
+    <div class="fig-title"><span class="fn">Abb. 4.1</span>Selbst ausmessen</div>
+    <div class="controls">
+      <div class="seg kind"><button type="button" data-v="normal" aria-pressed="true">Normal</button><button type="button" data-v="mix">Zufall</button><button type="button" data-v="avb">PQ lang?</button><button type="button" data-v="wide">QRS breit?</button><button type="button" data-v="qt">QT lang?</button></div>
+      <button type="button" class="btn ghost new">Neues EKG</button>
+    </div>
+    <canvas class="ecg-canvas" aria-label="Ableitung II und V5 zum Ausmessen"></canvas>
+    <div class="cal-out" aria-live="polite">Im EKG ziehen: Startpunkt drücken, zum Endpunkt ziehen.</div>
+    <form class="measure" onsubmit="return false">
+      <label>Frequenz (/min)<input name="hr" inputmode="decimal" autocomplete="off"></label>
+      <label>PQ (ms)<input name="pq" inputmode="decimal" autocomplete="off"></label>
+      <label>QRS (ms)<input name="qrs" inputmode="decimal" autocomplete="off"></label>
+      <label>QT (ms)<input name="qt" inputmode="decimal" autocomplete="off"></label>
+      <button type="button" class="btn do-check">Prüfen</button>
+    </form>
+    <ul class="result"></ul>
+    <figcaption>Modell-EKG mit exakt bekannten Werten, 25 mm/s, 10 mm/mV. Nach „Prüfen“ werden die richtigen Zeitpunkte im ersten vollständigen Schlag eingezeichnet. Toleranzen: Frequenz ± 5/min, PQ/QRS ± 20 ms, QT ± 30 ms.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Die QT-Zeit richtig messen</h3>
+      <ul>
+        <li>In der Ableitung mit der <b>längsten QT</b> und einer gut abgrenzbaren T-Welle messen, meist II oder V5.</li>
+        <li><b>T-Ende per Tangentenmethode</b>: Tangente an den steilsten Teil des absteigenden T-Schenkels legen; ihr Schnittpunkt mit der Grundlinie markiert das T-Ende.</li>
+        <li>Eine deutlich abgesetzte U-Welle <b>nicht</b> mitmessen. Verschmelzen T und U, wird die Messung unsicher – dann die QU-Zeit gesondert angeben.</li>
+        <li>Bei breitem QRS (Schenkelblock) ist die QT durch die verlängerte Depolarisation „künstlich“ lang. Hilfsweise wird dann die JT-Zeit betrachtet.</li>
+        <li>Bei Vorhofflimmern über mehrere Schläge mitteln – die Frequenzkorrektur ist bei stark wechselnden RR-Abständen unzuverlässig.</li>
+      </ul>
+      <h3>Frequenzkorrektur</h3>
+      <p>Die QT-Zeit wird mit steigender Frequenz kürzer. Um Werte vergleichbar zu machen, rechnet man sie auf eine Frequenz von 60/min (RR = 1 s) um:</p>
+      <div class="formula">Bazett: QTc = QT / √RR  ·  Fridericia: QTc = QT / ∛RR<br>Framingham: QTc = QT + 154 ms × (1 − RR)  ·  Hodges: QTc = QT + 1,75 × (HF − 60)</div>
+      <p>(RR in Sekunden.) Bazett ist am weitesten verbreitet, korrigiert aber bei hohen Frequenzen zu stark und bei niedrigen zu schwach. Die AHA/ACCF/HRS-Empfehlungen raten zu einer linearen Formel. Fridericia ist eine gute Alternative und in der Arzneimittelsicherheit üblich.</p>
+    </div>
+    <aside class="margin-note">Eine QTc ≥ 500 ms oder ein Anstieg um mehr als 60 ms unter einem Medikament ist ein Warnsignal für Torsade-de-pointes-Tachykardien.</aside>
+  </div>
+
+  <figure class="fig" id="fig-4b">
+    <div class="fig-title"><span class="fn">Abb. 4.2</span>QTc-Rechner</div>
+    <form class="qtc" onsubmit="return false">
+      <label>QT (ms)<input name="qt" value="420" inputmode="decimal"></label>
+      <label>Herzfrequenz (/min)<input name="hr" value="95" inputmode="decimal"></label>
+      <label>Geschlecht<select name="sex"><option value="m">männlich</option><option value="w">weiblich</option></select></label>
+    </form>
+    <div class="qtc-out" aria-live="polite"></div>
+    <figcaption>Einordnung nach AHA/ACCF/HRS 2009 (≥ 450 ms ♂ bzw. ≥ 460 ms ♀ verlängert, ≤ 390 ms kurz) und ESC 2022 (QTc ≥ 480 ms als diagnostisches Kriterium für ein Long-QT-Syndrom). Ein Rechner ersetzt nicht das sorgfältige Ausmessen.</figcaption>
+  </figure>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>25 mm/s: 1 mm = 40 ms, 5 mm = 200 ms. 10 mm/mV: 1 mm = 0,1 mV.</li>
+      <li>Frequenz: 300 / große Kästchen bzw. 1500 / kleine Kästchen; bei Arrhythmie QRS in 10 s × 6.</li>
+      <li>PQ 120–200 ms · QRS ≤ 110 ms (≥ 120 ms kompletter Schenkelblock) · P &lt; 120 ms.</li>
+      <li>QTc verlängert ab 450 ms (♂) bzw. 460 ms (♀); ≥ 500 ms deutlich erhöhtes Risiko.</li>
+      <li>Bazett überkorrigiert bei Tachykardie; Fridericia oder lineare Formeln sind robuster.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap4"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 4</summary>
+    <ol>
+      <li>Rautaharju PM, Surawicz B, Gettes LS. AHA/ACCF/HRS Recommendations for the standardization and interpretation of the electrocardiogram: Part IV: the ST segment, T and U waves, and the QT interval. <i>Circulation</i> 2009;119:e241–e250.</li>
+      <li>Surawicz B, Childers R, Deal BJ, Gettes LS. AHA/ACCF/HRS Recommendations … Part III: Intraventricular conduction disturbances. <i>Circulation</i> 2009;119:e235–e240. <a href="https://hrsonline.org/documents/interpretation-electrocardiogram-part-iii-intraventricular-conduction-disturbancespdf/download">HRS</a></li>
+      <li>Zeppenfeld K, Tfelt-Hansen J, de Riva M et al. 2022 ESC Guidelines for the management of patients with ventricular arrhythmias and the prevention of sudden cardiac death. <i>Eur Heart J</i> 2022;43:3997–4126.</li>
+      <li>Postema PG, Wilde AAM. The measurement of the QT interval. <i>Curr Cardiol Rev</i> 2014;10:287–294.</li>
+      <li>Vandenberk B, Vandael E, Robyns T et al. Which QT correction formulae to use for QT monitoring? <i>J Am Heart Assoc</i> 2016;5:e003264.</li>
+      <li>CredibleMeds. The effect of heart rate on QT – rate-correction of QT. <a href="https://crediblemeds.org/application/files/9916/7265/5713/QTcCP__The_Effect_of_Heart_Rate_on_QT_-_Rate-correction_of_QT_QTc_-_Companion_PDF_3.pdf">PDF</a></li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#ableitungen">← Kapitel 3</a><a href="#lagetyp">Kapitel 5: Lagetyp &amp; R-Progression →</a></nav>
+</section>
+<section class="chapter" id="lagetyp">
+  <header class="ch-head">
+    <span class="ch-num">05</span>
+    <h2>Lagetyp &amp; R-Progression</h2>
+    <p class="ch-sub">Hauptvektor in Frontal- und Horizontalebene <span class="en">QRS axis, R-wave progression</span></p>
+  </header>
+  <p class="lead">Der Lagetyp beschreibt, wohin der mittlere QRS-Vektor in der Frontalebene zeigt. Die R-Progression beschreibt dasselbe für die Horizontalebene. Beides ergibt sich direkt aus der Projektion aus Kapitel 2 – und beides verändert sich typisch bei Hemiblöcken, Hypertrophien und Infarkten.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Lagetypen</h3>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Lagetyp</th><th>QRS-Achse</th><th>Typische Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td>überdrehter Linkstyp</td><td>&lt; −30°</td><td>immer pathologisch abklären; häufig linksanteriorer Hemiblock</td></tr>
+          <tr><td>Linkstyp</td><td>−30° bis +30°</td><td>normal bei Älteren, Adipositas; auch bei Linksherzbelastung</td></tr>
+          <tr><td>Indifferenztyp</td><td>+30° bis +60°</td><td>normal beim Erwachsenen</td></tr>
+          <tr><td>Steiltyp</td><td>+60° bis +90°</td><td>normal bei Jüngeren und Schlanken</td></tr>
+          <tr><td>Rechtstyp</td><td>+90° bis +120°</td><td>normal bei Kindern und sehr schlanken Jugendlichen; beim Erwachsenen Rechtsherzbelastung, LPH?</td></tr>
+          <tr><td>überdrehter Rechtstyp</td><td>&gt; +120°</td><td>immer pathologisch (z. B. Rechtshypertrophie, angeborene Vitien)</td></tr>
+          <tr><td>Sagittaltyp</td><td>nicht bestimmbar</td><td>S in I, II und III (S<sub>I</sub>S<sub>II</sub>S<sub>III</sub>) oder S<sub>I</sub>Q<sub>III</sub>; Vektor zeigt aus der Frontalebene heraus; Normvariante oder Rechtsherzbelastung</td></tr>
+        </tbody></table></div>
+      <p class="caption">Konvention im deutschsprachigen Raum. Die englischsprachige Literatur nennt −30° bis +90° „normal axis“, darunter „left axis deviation“, darüber „right axis deviation“.</p>
+      <h3>Lagetyp in drei Schritten</h3>
+      <ol>
+        <li><b>Schnelltest:</b> I und aVF positiv → Achse zwischen 0° und +90°. I positiv, aVF negativ → 0° bis −90°: jetzt II prüfen (II überwiegend positiv → Linkstyp, negativ → überdrehter Linkstyp).</li>
+        <li><b>Größter positiver Ausschlag</b> (Nettofläche): Die Achse liegt nahe dieser Ableitung.</li>
+        <li><b>Isoelektrische Ableitung</b> (Nettofläche ≈ 0): Die Achse steht senkrecht darauf. Welche der beiden Senkrechten es ist, entscheidet Schritt 2.</li>
+      </ol>
+    </div>
+    <aside class="margin-note">Die Herzachse dreht sich im Lauf des Lebens nach links: vom Rechtstyp beim Säugling über den Steiltyp beim Jugendlichen zum Indifferenz- und Linkstyp beim älteren Erwachsenen.</aside>
+  </div>
+
+  <figure class="fig" id="fig-5a">
+    <div class="fig-title"><span class="fn">Abb. 5.1</span>Lagetyp-Trainer</div>
+    <div class="controls">
+      <div class="seg mode"><button type="button" data-v="explore" aria-pressed="true">Erkunden</button><button type="button" data-v="train">Üben</button></div>
+      <div class="ctrl"><label for="ax5">QRS-Achse</label><input id="ax5" class="ax wide-200" type="range" min="-100" max="180" value="50"><output class="ax-out" style="min-width:13em"></output></div>
+      <span class="score caption"></span>
+    </div>
+    <div class="controls"><div class="seg types"></div></div>
+    <div class="fig-body split-even">
+      <div class="panel"><svg role="img" aria-label="Hexaxialsystem mit Lagetyp-Sektoren"></svg></div>
+      <div class="panel"><canvas class="ecg-canvas" aria-label="Extremitätenableitungen in Cabrera-Reihenfolge"></canvas></div>
+    </div>
+    <div class="readout" aria-live="polite"></div>
+    <figcaption>Im Modus „Üben“ wird eine zufällige Achse erzeugt (nicht genau auf einer Grenze); die Trefferquote wird nur in deinem Browser gespeichert. Die Achse ist aus der QRS-Fläche in I und aVF berechnet.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>R-Progression</h3>
+      <p>In der Horizontalebene zeigt der QRS-Hauptvektor normalerweise nach links-hinten. Deshalb wächst die R-Zacke von V1 nach V5 und die S-Zacke wird kleiner. Die <b>Umschlagzone</b> <span class="en">transition zone</span> – die Ableitung, in der R und S etwa gleich groß sind – liegt normal bei <b>V3/V4</b>.</p>
+      <ul>
+        <li><b>Verzögerte R-Progression</b> (Umschlag erst V5/V6, R in V3 &lt; 0,3 mV): alter Vorderwandinfarkt, Linksschenkelblock, Linkshypertrophie, Lungenemphysem, Fehlanlage (zu hoch platzierte Elektroden) – aber auch bei Gesunden.</li>
+        <li><b>Frühe R-Progression</b> (R ≥ S schon in V1/V2): posteriorer Infarkt, Rechtshypertrophie, Rechtsschenkelblock, WPW-Syndrom, Normvariante bei Jüngeren.</li>
+      </ul>
+    </div>
+    <aside class="margin-note">Ein hohes R in V1 hat eine kurze, klinisch wichtige Differenzialdiagnose. Präge sie dir ein: posterior, RV-Hypertrophie, RSB, WPW, Normvariante.</aside>
+  </div>
+
+  <figure class="fig" id="fig-5b">
+    <div class="fig-title"><span class="fn">Abb. 5.2</span>Umschlagzone in V1–V6</div>
+    <div class="controls">
+      <div class="seg pre"></div>
+      <div class="ctrl"><label for="rot5">Drehung um die Längsachse</label><input id="rot5" class="rot" type="range" min="-45" max="45" value="0"><output class="rot-out"></output></div>
+    </div>
+    <canvas class="ecg-canvas" aria-label="Brustwandableitungen V1 bis V6"></canvas>
+    <div class="readout" aria-live="polite"></div>
+    <figcaption>Positive Drehung verlagert den Vektor nach vorn (frühere Umschlagzone), negative nach hinten (spätere Umschlagzone). Die Umschlagzone ist hinterlegt.</figcaption>
+  </figure>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Linkstyp −30° bis +30°, Indifferenztyp +30° bis +60°, Steiltyp +60° bis +90°, Rechtstyp +90° bis +120°; jenseits davon „überdreht“.</li>
+      <li>Schnelltest: I und aVF positiv = 0° bis +90°. Isoelektrische Ableitung → Achse senkrecht dazu.</li>
+      <li>Überdrehter Linkstyp → an linksanterioren Hemiblock denken; überdrehter Rechtstyp ist immer abklärungsbedürftig.</li>
+      <li>Umschlagzone normal V3/V4; früh bei posteriorem Infarkt, RVH, RSB, WPW; spät bei Vorderwandinfarkt, LSB, LVH.</li>
+      <li>Lagetyp immer im Kontext von Alter und Habitus bewerten.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap5"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 5</summary>
+    <ol>
+      <li>Surawicz B, Childers R, Deal BJ, Gettes LS. AHA/ACCF/HRS Recommendations … Part III: Intraventricular conduction disturbances. <i>Circulation</i> 2009;119:e235–e240.</li>
+      <li>Hancock EW, Deal BJ, Mirvis DM et al. AHA/ACCF/HRS Recommendations … Part V: Electrocardiogram changes associated with cardiac chamber hypertrophy. <i>Circulation</i> 2009;119:e251–e261.</li>
+      <li>Mason JW, Hancock EW, Gettes LS. AHA/ACCF/HRS Recommendations … Part II: Electrocardiography diagnostic statement list. <i>Circulation</i> 2007;115:1325–1332.</li>
+      <li>Hampton JR, Hampton J. <i>The ECG Made Easy</i>. 9. Aufl. Elsevier; 2019. (Didaktische Methode der Achsenbestimmung)</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#zeiten">← Kapitel 4</a><a href="#befundung">Kapitel 6: Systematische Befundung →</a></nav>
+</section>
+<section class="chapter" id="befundung">
+  <header class="ch-head">
+    <span class="ch-num">06</span>
+    <h2>Systematische Befundung</h2>
+    <p class="ch-sub">Ein festes Schema für jedes EKG <span class="en">systematic interpretation</span></p>
+  </header>
+  <p class="lead">Wer ein EKG „auf einen Blick“ befundet, findet das Offensichtliche und übersieht den Rest. Ein festes Schema, immer in derselben Reihenfolge abgearbeitet, macht die Befundung vollständig, nachvollziehbar und prüfungssicher. Es ist das Gerüst für alle folgenden Kapitel und für die Fallklinik.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Das Schema</h3>
+      <ol class="schema-list">
+        <li><b>Formales &amp; Technik</b> – Eichung, Vorschub, Artefakte, Elektrodenlage</li>
+        <li><b>Rhythmus</b> – regelmäßig? Sinusrhythmus?</li>
+        <li><b>Frequenz</b></li>
+        <li><b>Lagetyp</b></li>
+        <li><b>Zeiten</b> – P, PQ, QRS, QT/QTc</li>
+        <li><b>P-Welle</b> – Form, Dauer, Amplitude</li>
+        <li><b>QRS-Komplex</b> – Q-Zacken, Amplituden, R-Progression, Blockbilder</li>
+        <li><b>ST-Strecke</b> – Hebung, Senkung, Form, Verteilung</li>
+        <li><b>T-Welle</b> – Polarität, Form</li>
+        <li><b>U-Welle</b></li>
+        <li><b>Beurteilung</b> – Zusammenfassung, Vergleich mit Vor-EKG, klinische Einordnung</li>
+      </ol>
+      <p>Die Reihenfolge folgt dem Erregungsablauf und ist bewusst so gewählt, dass frühere Schritte spätere beeinflussen: Ein Schenkelblock (Schritt 7) verändert ST und T (Schritte 8–9) sekundär, eine Tachykardie (Schritte 2–3) verkürzt die QT (Schritt 5).</p>
+    </div>
+    <aside class="margin-note">Die Befundung endet nie nach dem ersten auffälligen Befund. „Satisfaction of search“ – das Aufhören nach dem ersten Treffer – ist einer der häufigsten Fehler beim EKG-Lesen.</aside>
+  </div>
+
+  <figure class="fig" id="fig-6a">
+    <div class="fig-title"><span class="fn">Abb. 6.1</span>Befund-Assistent: Schritt für Schritt</div>
+    <div class="controls"><div class="seg ex"></div></div>
+    <div class="assist">
+      <ol class="steps"></ol>
+      <div class="assist-main">
+        <div class="ecg-scroll"><canvas class="ecg-canvas" aria-label="12-Kanal-EKG; für den aktuellen Schritt relevante Ableitungen sind hervorgehoben"></canvas></div>
+        <div class="step-card" aria-live="polite"></div>
+      </div>
+    </div>
+    <figcaption>Drei Modell-EKGs mit exakt bekannten Werten. Für jeden Schritt sind die besonders relevanten Ableitungen hinterlegt, die übrigen abgeschwächt. Erst selbst befunden, dann „Befund zeigen“. Echte EKGs übst du anschließend in der <a href="#faelle">Fallklinik</a> – dort mit demselben Schema.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Was zu den einzelnen Schritten gehört</h3>
+    <p><b>Rhythmus.</b> Sinusrhythmus heißt: Jeder QRS hat eine vorangehende P-Welle mit normaler Achse (positiv in I und II, negativ in aVR), und die PQ-Zeit ist konstant. Eine leichte Variabilität der RR-Abstände mit der Atmung (respiratorische Sinusarrhythmie) ist bei Jüngeren normal.</p>
+    <p><b>QRS-Komplex – pathologische Q-Zacken.</b> Die 4. universelle Infarktdefinition nennt als Zeichen eines abgelaufenen Infarkts u. a.: jede Q-Zacke in V2–V3 &gt; 20 ms oder ein QS-Komplex in V2–V3; eine Q-Zacke ≥ 30 ms und ≥ 0,1 mV tief (oder QS) in zwei benachbarten Ableitungen von I, II, aVL, aVF bzw. V4–V6. Ein isoliertes Q in III ist häufig lagebedingt und normal.</p>
+    <p><b>QRS-Komplex – Amplituden.</b> <i>Niedervoltage</i>: QRS &lt; 0,5 mV in allen Extremitätenableitungen bzw. &lt; 1,0 mV in allen Brustwandableitungen (z. B. Perikarderguss, Adipositas, Emphysem, Amyloidose). Hohe Amplituden: Hypertrophie-Indizes (Kapitel 12).</p>
+    <p><b>ST-Strecke.</b> Am J-Punkt gegenüber der PQ-Strecke messen. Neben der Höhe zählen Form (horizontal und deszendierend ist ischämieverdächtiger als aszendierend) und Verteilung: ST-Hebung in einem Koronargebiet mit spiegelbildlicher Senkung spricht für einen Infarkt, diffuse Hebung ohne Spiegelbild eher für eine Perikarditis (Kapitel 11 und 13).</p>
+    <p><b>T-Welle.</b> Normal positiv in I, II und V3–V6, negativ in aVR, variabel in III, aVL, aVF und V1 (bei Jüngeren auch V2). Neue, symmetrische T-Negativierungen sind ischämieverdächtig; sehr hohe, schmalbasige T-Wellen lassen an Hyperkaliämie oder einen hyperakuten Infarkt denken.</p>
+    <p><b>Beurteilung.</b> Ein guter Befundtext ist kurz, beginnt mit Rhythmus, Frequenz und Lagetyp, nennt dann nur die relevanten (pathologischen oder bedeutsam normalen) Befunde und endet mit einer Einordnung. Der Vergleich mit einem Vor-EKG ist oft die wichtigste Information überhaupt.</p>
+  </div>
+
+  <div class="merk" id="merkkarte">
+    <div class="merk-head"><div><div class="panel-label">Merkkarte</div><h3>EKG-Befundschema</h3></div><button type="button" class="btn ghost print-merk">Merkkarte drucken</button></div>
+    <div class="table-wrap"><table class="data"><thead><tr><th>#</th><th>Schritt</th><th>Worauf achten</th><th>Normal</th></tr></thead><tbody></tbody></table></div>
+    <p class="caption">Normwerte für Erwachsene, u. a. nach AHA/ACCF/HRS 2007–2009. Quelle: „EKG verstehen“.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Immer dieselbe Reihenfolge: Formales → Rhythmus → Frequenz → Lagetyp → Zeiten → P → QRS → ST → T → U → Beurteilung.</li>
+      <li>Nach dem ersten pathologischen Befund weiterlesen – Zweitbefunde sind häufig und oft wichtiger.</li>
+      <li>ST am J-Punkt gegen die PQ-Strecke messen; Form und Verteilung sind so wichtig wie die Höhe.</li>
+      <li>Sekundäre ST-T-Veränderungen (Schenkelblock, Hypertrophie, Präexzitation) von primären unterscheiden.</li>
+      <li>Der Befund endet mit einer Einordnung: Vergleich mit Vor-EKG und Klinik.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap6"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 6</summary>
+    <ol>
+      <li>Kligfield P, Gettes LS, Bailey JJ et al. AHA/ACCF/HRS Recommendations … Part I. <i>Circulation</i> 2007;115:1306–1324.</li>
+      <li>Mason JW, Hancock EW, Gettes LS. AHA/ACCF/HRS Recommendations … Part II: Electrocardiography diagnostic statement list. <i>Circulation</i> 2007;115:1325–1332.</li>
+      <li>Thygesen K, Alpert JS, Jaffe AS et al. Fourth Universal Definition of Myocardial Infarction (2018). <i>Eur Heart J</i> 2019;40:237–269.</li>
+      <li>Rautaharju PM, Surawicz B, Gettes LS. AHA/ACCF/HRS Recommendations … Part IV. <i>Circulation</i> 2009;119:e241–e250.</li>
+      <li>Surawicz B, Childers R, Deal BJ, Gettes LS. AHA/ACCF/HRS Recommendations … Part III. <i>Circulation</i> 2009;119:e235–e240.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#lagetyp">← Kapitel 5</a><a href="#brady">Kapitel 7: Bradykardien &amp; AV-Blöcke →</a></nav>
+</section>
+<section class="chapter" id="brady">
+  <header class="ch-head">
+    <span class="ch-num">07</span>
+    <h2>Bradykardien &amp; AV-Blöcke</h2>
+    <p class="ch-sub">Wenn die Erregung zu langsam entsteht oder nicht ankommt <span class="en">bradyarrhythmias, AV block</span></p>
+  </header>
+  <p class="lead">Bradykardien entstehen auf zwei Wegen: Der Sinusknoten bildet zu wenig Erregungen (Sinusknotenfunktionsstörung) – oder die Erregung wird auf dem Weg zu den Kammern verzögert oder blockiert (SA- und AV-Blockierungen). Die entscheidende Frage ist immer: <i>Wo</i> sitzt die Störung? Davon hängt ab, wie zuverlässig das Ersatzzentrum ist.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Das Leiterdiagramm</h3>
+      <p>Ein Leiterdiagramm <span class="en">laddergram</span> zeichnet für jede Erregung, wann sie die Vorhöfe (A), den AV-Knoten (AV) und die Kammern (V) erreicht. Schräge Linien im AV-Abschnitt zeigen die Leitungszeit, ein Querstrich eine Blockierung. So werden AV-Blöcke, Ersatzrhythmen und versteckte P-Wellen auf einen Blick verständlich.</p>
+      <h3>Systematisch vorgehen</h3>
+      <ol>
+        <li>P-Wellen suchen und ihren Abstand (PP) bestimmen – auch in T-Wellen und QRS-Komplexen „versteckte“ P-Wellen mit dem Messzirkel aufspüren.</li>
+        <li>Für jede P-Welle prüfen: Folgt ein QRS? Ist die PQ-Zeit konstant, zunehmend oder ohne Beziehung?</li>
+        <li>QRS-Breite der Kammerkomplexe beurteilen: schmal (supra-/junktional) oder breit (Schenkelblock oder ventrikulärer Ersatzrhythmus).</li>
+      </ol>
+    </div>
+    <aside class="margin-note">Im Leiterdiagramm unten kennzeichnen rote Querstriche blockierte Erregungen, Punkte die Entstehung in einem Ersatzzentrum.</aside>
+  </div>
+
+  <figure class="fig" id="fig-7a">
+    <div class="fig-title"><span class="fn">Abb. 7.1</span>Bradykarde Rhythmen mit Leiterdiagramm</div>
+    <div class="controls"><div class="seg items"></div></div>
+    <canvas class="ecg-canvas" aria-label="Rhythmusstreifen II und V1 mit Leiterdiagramm"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell-EKG, 10 s, 25 mm/s. Leiterdiagramm: A = Vorhof, AV = AV-Überleitung, V = Kammer. Blau: Erregung aus einem ventrikulären Zentrum, schwarz gefüllt: junktionales Zentrum.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Überblick</h3>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Störung</th><th>EKG</th><th>Lokalisation, Bedeutung</th></tr></thead>
+      <tbody>
+        <tr><td>Sinusbradykardie</td><td>Sinusrhythmus &lt; 60/min</td><td>oft physiologisch; Medikamente, Hypothyreose, Sinusknotensyndrom</td></tr>
+        <tr><td>Sinusarrest / Sinuspause</td><td>Pause ohne P-Welle, nicht ein Vielfaches des PP</td><td>Sinusknotenfunktionsstörung</td></tr>
+        <tr><td>SA-Block II°</td><td>Ausfall eines ganzen P-QRS-T, Pause = 2 × PP</td><td>Leitungsstörung Sinusknoten → Vorhof</td></tr>
+        <tr><td>AV-Block I°</td><td>PQ &gt; 200 ms, alle P übergeleitet</td><td>meist AV-Knoten; meist harmlos</td></tr>
+        <tr><td>AV-Block II° Wenckebach</td><td>PQ nimmt zu bis zur Blockierung</td><td>meist AV-Knoten; meist gutartig</td></tr>
+        <tr><td>AV-Block II° Mobitz</td><td>konstante PQ, plötzlich blockierte P</td><td>meist infranodal; Schrittmacherindikation</td></tr>
+        <tr><td>AV-Block 2:1</td><td>jede zweite P blockiert</td><td>Typ nicht sicher zuzuordnen</td></tr>
+        <tr><td>höhergradiger AV-Block</td><td>≥ 2 aufeinanderfolgende P blockiert</td><td>meist infranodal; Schrittmacherindikation</td></tr>
+        <tr><td>AV-Block III°</td><td>AV-Dissoziation, Vorhof- &gt; Kammerfrequenz</td><td>Ersatz junktional (schmal, 40–60/min) oder ventrikulär (breit, 20–40/min)</td></tr>
+      </tbody></table></div>
+    <p>Die ESC-Leitlinie zur Schrittmachertherapie (2021) empfiehlt bei AV-Block III°, AV-Block II° Typ Mobitz, infranodalem 2:1-Block und höhergradigem AV-Block eine Schrittmachertherapie unabhängig von Symptomen, sofern keine reversible Ursache vorliegt. Reversible Ursachen sind vorher auszuschließen: Medikamente (Betablocker, Kalziumantagonisten, Digitalis, Antiarrhythmika), Hyperkaliämie, akuter Hinterwandinfarkt, Lyme-Borreliose, Hypothyreose.</p>
+    <p>Zum Üben: <a href="#faelle" data-case="9108">Fall 04</a> (AV-Block I°) und <a href="#faelle" data-case="959">Fall 05</a> (AV-Block III°) in der Fallklinik.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Erst P-Wellen finden, dann jede P-Welle einem QRS zuordnen (oder nicht).</li>
+      <li>Wenckebach: PQ wird länger bis zum Ausfall – meist AV-Knoten, meist gutartig.</li>
+      <li>Mobitz: konstante PQ, plötzlicher Ausfall – meist infranodal, Schrittmacherindikation.</li>
+      <li>2:1-Block: Typ nicht bestimmbar; breiter QRS spricht für infranodale Lage.</li>
+      <li>AV-Block III°: AV-Dissoziation; breiter, langsamer Ersatzrhythmus = instabil.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap7"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 7</summary>
+    <ol>
+      <li>Glikson M, Nielsen JC, Kronborg MB et al. 2021 ESC Guidelines on cardiac pacing and cardiac resynchronization therapy. <i>Eur Heart J</i> 2021;42:3427–3520.</li>
+      <li>Kusumoto FM, Schoenfeld MH, Barrett C et al. 2018 ACC/AHA/HRS Guideline on the evaluation and management of patients with bradycardia and cardiac conduction delay. <i>Circulation</i> 2019;140:e382–e482.</li>
+      <li>Mason JW, Hancock EW, Gettes LS. AHA/ACCF/HRS Recommendations … Part II: Diagnostic statement list. <i>Circulation</i> 2007;115:1325–1332.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#befundung">← Kapitel 6</a><a href="#schenkel">Kapitel 8: Schenkel- &amp; Faszikelblöcke →</a></nav>
+</section>
+<section class="chapter" id="schenkel">
+  <header class="ch-head">
+    <span class="ch-num">08</span>
+    <h2>Schenkel- &amp; Faszikelblöcke</h2>
+    <p class="ch-sub">Intraventrikuläre Leitungsstörungen <span class="en">bundle branch and fascicular blocks</span></p>
+  </header>
+  <p class="lead">Fällt ein Tawara-Schenkel aus, wird der betroffene Ventrikel nicht mehr über das schnelle Purkinje-System, sondern langsam von Zelle zu Zelle erregt. Der QRS wird breit, und der späte Vektor zeigt zur blockierten Seite. Wer das Prinzip verstanden hat, muss die Kriterien nicht auswendig lernen – sie ergeben sich von selbst.</p>
+
+  <figure class="fig" id="fig-8a">
+    <div class="fig-title"><span class="fn">Abb. 8.1</span>Leitungsbahnen durchtrennen</div>
+    <div class="controls"><div class="seg presets"><button type="button" data-v="none" aria-pressed="true">Normal</button><button type="button" data-v="rbbb">RSB</button><button type="button" data-v="lbbb">LSB</button><button type="button" data-v="lafb">LAH</button><button type="button" data-v="lpfb">LPH</button><button type="button" data-v="rbbbLafb">RSB + LAH</button></div></div>
+    <div class="fig-body split">
+      <div class="panel"><div class="panel-label">Leitungssystem – Bahn anklicken zum Durchtrennen</div><svg class="cs" role="img" aria-label="Schema des ventrikulären Leitungssystems mit anklickbaren Schenkeln"></svg>
+        <div class="readout" aria-live="polite" style="margin-top:.4rem"></div></div>
+      <div class="panel"><div class="panel-label">12-Kanal-EKG</div><div class="ecg-scroll"><canvas class="ecg-canvas"></canvas></div></div>
+    </div>
+    <figcaption>Kombinationen sind möglich: Klicke z. B. den rechten Schenkel und den linksanterioren Faszikel an. Werden alle Schenkel unterbrochen, entsteht ein kompletter AV-Block. Kriterien nach AHA/ACCF/HRS (Teil III, 2009); für die wichtigsten Ableitungen hervorgehoben.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Rechts oder links? Ein Blick auf V1</h3>
+      <p>In V1 zeigt sich, welcher Ventrikel zuletzt erregt wird. Beim <b>RSB</b> ist der späte Vektor nach rechts vorn gerichtet: terminal positiv (R′, „M-Form“). Beim <b>LSB</b> läuft die gesamte Erregung nach links hinten: V1 überwiegend negativ (QS oder rS). Merkhilfe: Beim RSB ist der Endteil des QRS in V1 nach oben gerichtet, beim LSB nach unten.</p>
+      <h3>Strengere LSB-Kriterien</h3>
+      <p>Für die Indikationsstellung zur kardialen Resynchronisationstherapie haben Strauss und Kollegen strengere Kriterien vorgeschlagen: QRS ≥ 140 ms (Männer) bzw. ≥ 130 ms (Frauen), QS oder rS in V1/V2 und mittige Knotung oder Verplumpung des QRS in ≥ 2 der Ableitungen V1, V2, V5, V6, I, aVL. Manche Bilder, die nach den klassischen Kriterien als LSB gelten, sind in Wahrheit eine Kombination aus Linkshypertrophie und LAH.</p>
+      <h3>Inkomplette Blöcke und unspezifische Leitungsstörung</h3>
+      <ul>
+        <li><b>Inkompletter RSB</b>: RSB-Morphologie bei QRS 110–119 ms; bei Jüngeren häufig und meist bedeutungslos, aber auch bei Vorhofseptumdefekt.</li>
+        <li><b>Unspezifische intraventrikuläre Leitungsstörung</b>: QRS &gt; 110 ms ohne Kriterien von RSB oder LSB.</li>
+      </ul>
+      <h3>Klinische Bedeutung</h3>
+      <ul>
+        <li>Ein neuer <b>LSB</b> ist ein Hinweis auf strukturelle Herzerkrankung (Echokardiografie). Bei Brustschmerz und starkem Ischämieverdacht wird nach ESC 2023 wie beim STEMI vorgegangen; der LSB allein ist aber kein Hinweis auf einen Gefäßverschluss.</li>
+        <li>Ein <b>RSB</b> ist auch bei Gesunden häufig. Neu aufgetreten kann er auf eine Rechtsherzbelastung (Lungenembolie) oder Ischämie hinweisen.</li>
+        <li>Beim Schenkelblock sind ST und T <b>sekundär</b> verändert. Primäre Veränderungen (z. B. gleichsinnige ST-Hebung beim LSB) sind dagegen verdächtig (Kapitel 11).</li>
+      </ul>
+      <p>Zum Üben: <a href="#faelle" data-case="8504">Fall 16</a> (RSB), <a href="#faelle" data-case="946">Fall 17</a> und <a href="#faelle" data-case="1564">Fall 18</a> (LSB), <a href="#faelle" data-case="4444">Fall 19</a> (LAH).</p>
+    </div>
+    <aside class="margin-note">„Trifaszikulärer Block“ ist ein verbreiteter, aber nicht empfohlener Begriff. Benenne stattdessen jede Störung einzeln – z. B. „AV-Block I°, RSB und LAH“.</aside>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>QRS ≥ 120 ms = kompletter Schenkelblock; 110–119 ms = inkomplett bzw. unspezifisch.</li>
+      <li>RSB: rSR′ in V1/V2, breites S in I und V6. LSB: breites, gekerbtes R in I, aVL, V5, V6, kein septales q, QS/rS in V1.</li>
+      <li>LAH: Achse −45° bis −90°, qR in aVL, QRS &lt; 120 ms. LPH: Achse +90° bis +180°, rS in I/aVL, qR in III/aVF – Ausschlussdiagnose.</li>
+      <li>ST-T beim Schenkelblock sind sekundär diskordant; konkordante Veränderungen sind verdächtig.</li>
+      <li>Leitungsstörungen einzeln benennen statt „bi-/trifaszikulär“.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap8"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 8</summary>
+    <ol>
+      <li>Surawicz B, Childers R, Deal BJ, Gettes LS. AHA/ACCF/HRS Recommendations … Part III: Intraventricular conduction disturbances. <i>Circulation</i> 2009;119:e235–e240. <a href="https://hrsonline.org/documents/interpretation-electrocardiogram-part-iii-intraventricular-conduction-disturbancespdf/download">HRS</a></li>
+      <li>Strauss DG, Selvester RH, Wagner GS. Defining left bundle branch block in the era of cardiac resynchronization therapy. <i>Am J Cardiol</i> 2011;107:927–934.</li>
+      <li>Byrne RA, Rossello X, Coughlan JJ et al. 2023 ESC Guidelines for the management of acute coronary syndromes. <i>Eur Heart J</i> 2023;44:3720–3826. Ergänzende Daten: <a href="https://www.uniklinik-ulm.de/fileadmin/default/09_Sonstige/Klinische-Chemie/Downloads/ehad191_supplementary_data_ESC_Guideline_ACS_2023.pdf">PDF</a></li>
+      <li>Glikson M, Nielsen JC, Kronborg MB et al. 2021 ESC Guidelines on cardiac pacing and cardiac resynchronization therapy. <i>Eur Heart J</i> 2021;42:3427–3520.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#brady">← Kapitel 7</a><a href="#svt">Kapitel 9: Schmalkomplex-Tachykardien →</a></nav>
+</section>
+<section class="chapter" id="svt">
+  <header class="ch-head">
+    <span class="ch-num">09</span>
+    <h2>Schmalkomplex-Tachykardien</h2>
+    <p class="ch-sub">Supraventrikuläre Tachykardien und Präexzitation <span class="en">narrow complex tachycardias, WPW</span></p>
+  </header>
+  <p class="lead">Eine Tachykardie mit schmalem QRS (&lt; 120 ms) entsteht oberhalb der Kammern – die Kammern werden regulär über das His-Purkinje-System erregt. Die Unterscheidung gelingt mit zwei Fragen: Ist der Rhythmus <b>regelmäßig</b>? Und <b>wo</b> sind die P-Wellen?</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Zwei Fragen, fast alle Diagnosen</h3>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th></th><th>P-Wellen</th><th>Diagnose</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2"><b>unregelmäßig</b></td><td>keine, Flimmerwellen</td><td>Vorhofflimmern</td></tr>
+          <tr><td>wechselnde Morphologie</td><td>multifokale atriale Tachykardie; Flattern mit wechselnder Überleitung</td></tr>
+          <tr><td rowspan="5"><b>regelmäßig</b></td><td>vor jedem QRS, normale Achse</td><td>Sinustachykardie</td></tr>
+          <tr><td>vor jedem QRS, abweichende Achse (langes RP)</td><td>fokale atriale Tachykardie</td></tr>
+          <tr><td>Sägezahn, Vorhof ≈ 300/min</td><td>Vorhofflattern (oft 2:1 → 150/min)</td></tr>
+          <tr><td>nicht sichtbar oder direkt nach QRS (RP &lt; 70 ms)</td><td>typische AVNRT</td></tr>
+          <tr><td>deutlich nach QRS (RP &gt; 70 ms)</td><td>orthodrome AVRT</td></tr>
+        </tbody></table></div>
+      <p class="caption">Vereinfacht nach der ESC-Leitlinie zu supraventrikulären Tachykardien (2019). Die RP-Grenze von 70 ms ist ein Anhaltspunkt, keine scharfe Regel.</p>
+    </div>
+    <aside class="margin-note">Adenosin ist bei regelmäßigen Schmalkomplex-Tachykardien Diagnostikum und Therapeutikum zugleich: Es beendet AV-Knoten-abhängige Tachykardien und demaskiert Flattern oder atriale Tachykardien.</aside>
+  </div>
+
+  <figure class="fig" id="fig-9a">
+    <div class="fig-title"><span class="fn">Abb. 9.1</span>Schmalkomplex-Tachykardien und der Adenosin-Test</div>
+    <div class="controls"><div class="seg items"></div><button type="button" class="btn ghost adeno" aria-pressed="false">Adenosin geben</button></div>
+    <canvas class="ecg-canvas" aria-label="Rhythmusstreifen II und V1 mit Leiterdiagramm"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell-EKG, 10 s. Hinterlegt: Zeitfenster der Adenosin-Wirkung (vereinfacht). Im Leiterdiagramm: blaue Linien = retrograde Leitung zu den Vorhöfen.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Vorhofflimmern</h3>
+    <p>Häufigste anhaltende Herzrhythmusstörung. Kennzeichen: unregelmäßige RR-Abstände, fehlende P-Wellen, Flimmerwellen. Die Kammerfrequenz hängt von der AV-Überleitung ab („tachykard“, „normofrequent“, „bradykard“). Bei Vorhofflimmern mit sehr langsamer, <i>regelmäßiger</i> Kammerfrequenz an einen begleitenden AV-Block III° denken.</p>
+    <h3>Präexzitation (WPW)</h3>
+    <p>Eine akzessorische Leitungsbahn (Kent-Bündel) verbindet Vorhof und Kammer unter Umgehung des AV-Knotens. Leitet sie antegrad, zeigt das Sinusrhythmus-EKG eine <b>Präexzitation</b>. Sie ist das Substrat für AV-Reentry-Tachykardien und – gefährlich – für schnell übergeleitetes Vorhofflimmern.</p>
+  </div>
+
+  <figure class="fig" id="fig-9b">
+    <div class="fig-title"><span class="fn">Abb. 9.2</span>Präexzitation</div>
+    <div class="controls"><div class="seg mode"><button type="button" data-v="sinus">Normal</button><button type="button" data-v="wpw" aria-pressed="true">WPW-Muster</button><button type="button" data-v="pafib">Vorhofflimmern bei WPW</button></div></div>
+    <div class="ecg-scroll"><canvas class="ecg-canvas" aria-label="12-Kanal-EKG mit Präexzitation"></canvas></div>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell einer linkslateralen akzessorischen Bahn. Die Polarität der Delta-Welle erlaubt eine grobe Lokalisation der Bahn; dafür gibt es eigene Algorithmen.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p>Zum Üben: <a href="#faelle" data-case="8215">Fall 07</a> (Vorhofflimmern), <a href="#faelle" data-case="23">Fall 08</a> (Flattern 2:1), <a href="#faelle" data-case="14286">Fall 10</a> (SVT), <a href="#faelle" data-case="11889">Fall 12</a> (WPW).</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Schmaler QRS = supraventrikulärer Ursprung. Erste Frage: regelmäßig oder unregelmäßig?</li>
+      <li>Unregelmäßig ohne P-Wellen = Vorhofflimmern. Regelmäßig um 150/min = an Flattern 2:1 denken.</li>
+      <li>AVNRT: P im oder direkt nach dem QRS (Pseudo-r′ V1). AVRT: P deutlich nach dem QRS.</li>
+      <li>WPW-Muster: kurze PQ, Delta-Welle, breiter QRS, sekundäre ST-T-Veränderungen.</li>
+      <li>Präexzitiertes Vorhofflimmern: keine AV-Knoten-Blocker; bei Instabilität Kardioversion.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap9"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 9</summary>
+    <ol>
+      <li>Brugada J, Katritsis DG, Arbelo E et al. 2019 ESC Guidelines for the management of patients with supraventricular tachycardia. <i>Eur Heart J</i> 2020;41:655–720.</li>
+      <li>Van Gelder IC, Rienstra M, Bunting KV et al. 2024 ESC Guidelines for the management of atrial fibrillation. <i>Eur Heart J</i> 2024;45:3314–3414.</li>
+      <li>Page RL, Joglar JA, Caldwell MA et al. 2015 ACC/AHA/HRS Guideline for the management of adult patients with supraventricular tachycardia. <i>Circulation</i> 2016;133:e506–e574.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#schenkel">← Kapitel 8</a><a href="#vt">Kapitel 10: Ventrikuläre Rhythmen →</a></nav>
+</section>
+<section class="chapter" id="vt">
+  <header class="ch-head">
+    <span class="ch-num">10</span>
+    <h2>Ventrikuläre Rhythmen</h2>
+    <p class="ch-sub">Extrasystolen, VT und Breitkomplex-Tachykardie <span class="en">ventricular arrhythmias, wide complex tachycardia</span></p>
+  </header>
+  <p class="lead">Entsteht eine Erregung im Ventrikel, breitet sie sich langsam über das Arbeitsmyokard aus: Der QRS wird breit und deformiert, ST und T laufen gegensinnig. Die wichtigste klinische Frage ist die Unterscheidung einer ventrikulären Tachykardie von einer supraventrikulären Tachykardie mit Schenkelblock – und die Regel für den Zweifelsfall.</p>
+
+  <figure class="fig" id="fig-10a">
+    <div class="fig-title"><span class="fn">Abb. 10.1</span>Von der Extrasystole bis zum Kammerflimmern</div>
+    <div class="controls"><div class="seg items"></div></div>
+    <canvas class="ecg-canvas" aria-label="Rhythmusstreifen II und V1 mit Leiterdiagramm"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell-EKG, 10 s. Im Leiterdiagramm markieren blaue Punkte Erregungen, die im Ventrikel entstehen; rote Querstriche nicht übergeleitete Sinuserregungen.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Begriffe</h3>
+      <ul>
+        <li><b>VES</b>: einzelne vorzeitige ventrikuläre Erregung. <i>Monomorph</i> (gleich geformt, ein Ursprung) oder <i>polymorph</i>.</li>
+        <li><b>Bigeminus / Trigeminus</b>: jeder zweite bzw. dritte Schlag eine VES.</li>
+        <li><b>Couplet / Triplet</b>: zwei bzw. drei VES in Folge.</li>
+        <li><b>Nicht anhaltende VT</b>: ≥ 3 Schläge, &gt; 100/min, &lt; 30 s.</li>
+        <li><b>Anhaltende VT</b>: ≥ 30 s oder frühere Terminierung wegen Instabilität.</li>
+        <li><b>Torsade de pointes</b>: polymorphe VT bei verlängerter QT mit „drehender“ Achse.</li>
+        <li><b>Kammerflattern / -flimmern</b>: sinusartige bzw. chaotische Aktivität ohne abgrenzbare QRS-Komplexe.</li>
+      </ul>
+      <h3>Breitkomplex-Tachykardie: VT oder SVT?</h3>
+      <p>Eine regelmäßige Tachykardie mit QRS ≥ 120 ms ist entweder eine <b>VT</b>, eine <b>SVT mit Schenkelblock</b> (vorbestehend oder frequenzabhängig) oder eine <b>präexzitierte Tachykardie</b>. Bei Patienten mit struktureller Herzerkrankung, insbesondere nach Infarkt, ist die große Mehrzahl eine VT.</p>
+      <p><b>Starke Hinweise auf VT</b>: AV-Dissoziation, Capture- und Fusionsschläge, präkordiale Konkordanz (alle Komplexe positiv oder alle negativ), Achse „Nordwest“ (−90° bis ±180°), QRS &gt; 160 ms (LSB-artig) bzw. &gt; 140 ms (RSB-artig), Infarkt in der Vorgeschichte.</p>
+    </div>
+    <aside class="margin-note">Die wichtigste Regel: Eine Breitkomplex-Tachykardie gilt bis zum Beweis des Gegenteils als VT. Eine VT fälschlich als SVT zu behandeln (z. B. mit Verapamil) kann tödlich sein.</aside>
+  </div>
+
+  <figure class="fig" id="fig-10b">
+    <div class="fig-title"><span class="fn">Abb. 10.2</span>Brugada-Algorithmus am Beispiel</div>
+    <div class="fig-body split">
+      <div class="panel"><div class="panel-label">Entscheidungsbaum</div><div class="tree" aria-live="polite"></div></div>
+      <div class="panel"><div class="panel-label">Beispiel: Breitkomplex-Tachykardie (Modell)</div><div class="ecg-scroll"><canvas class="ecg-canvas"></canvas></div></div>
+    </div>
+    <figcaption>Wende die Schritte auf das Beispiel-EKG an. Brugada P, Brugada J, Mont L et al., Circulation 1991. Der Algorithmus wurde an ausgewählten Patienten entwickelt; in späteren Studien war seine Treffsicherheit niedriger – klinischer Kontext bleibt entscheidend.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Alternative: aVR-Algorithmus nach Vereckei</h3>
+    <p>Nutzt nur Ableitung aVR. Jede „Ja“-Antwort spricht für VT: (1) initiale R-Zacke in aVR; (2) initiales r oder q &gt; 40 ms; (3) Knotung im absteigenden Schenkel eines negativ beginnenden, überwiegend negativen QRS; (4) Verhältnis der Spannungsänderung in den ersten zu den letzten 40 ms (v<sub>i</sub>/v<sub>t</sub>) ≤ 1. Grundidee: Bei einer SVT mit Aberration beginnt die Kammererregung schnell über das Leitungssystem, bei einer VT langsam über das Myokard.</p>
+    <p>Zum Üben: <a href="#faelle" data-case="14501">Fall 13</a> (Bigeminus) und <a href="#faelle" data-case="9266">Fall 14</a> (monomorphe VES).</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>VES: vorzeitig, breit, deformiert, ohne P, ST-T diskordant, meist kompensatorische Pause.</li>
+      <li>nsVT ≥ 3 Schläge bis &lt; 30 s; anhaltende VT ≥ 30 s oder instabil.</li>
+      <li>AV-Dissoziation, Fusions-/Capture-Schläge und präkordiale Konkordanz sprechen stark für VT.</li>
+      <li>Breitkomplex-Tachykardie im Zweifel wie eine VT behandeln.</li>
+      <li>Torsade de pointes: polymorphe VT bei langer QT → Magnesium, Ursachen beseitigen.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap10"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 10</summary>
+    <ol>
+      <li>Zeppenfeld K, Tfelt-Hansen J, de Riva M et al. 2022 ESC Guidelines for the management of patients with ventricular arrhythmias and the prevention of sudden cardiac death. <i>Eur Heart J</i> 2022;43:3997–4126.</li>
+      <li>Brugada P, Brugada J, Mont L, Smeets J, Andries EW. A new approach to the differential diagnosis of a regular tachycardia with a wide QRS complex. <i>Circulation</i> 1991;83:1649–1659.</li>
+      <li>Vereckei A, Duray G, Szénási G et al. New algorithm using only lead aVR for differential diagnosis of wide QRS complex tachycardia. <i>Heart Rhythm</i> 2008;5:89–98.</li>
+      <li>Drew BJ, Ackerman MJ, Funk M et al. Prevention of torsade de pointes in hospital settings: AHA/ACCF scientific statement. <i>Circulation</i> 2010;121:1047–1060.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#svt">← Kapitel 9</a><a href="#ischaemie">Kapitel 11: Ischämie &amp; Infarkt →</a></nav>
+</section>
+<section class="chapter" id="ischaemie">
+  <header class="ch-head">
+    <span class="ch-num">11</span>
+    <h2>Ischämie &amp; Infarkt</h2>
+    <p class="ch-sub">ST-Hebung, Lokalisation, Äquivalente <span class="en">ischemia and myocardial infarction</span></p>
+  </header>
+  <p class="lead">Bei einem akuten Koronarverschluss entsteht zwischen ischämischem und gesundem Myokard ein „Verletzungsstrom“. Er verschiebt die ST-Strecke: Ableitungen, die auf das ischämische Areal blicken, zeigen eine Hebung, gegenüberliegende eine spiegelbildliche Senkung. Aus dem Muster lassen sich Infarktgebiet und Gefäß ableiten.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>STEMI-Kriterien</h3>
+      <p>Neue ST-Hebung am J-Punkt in <b>zwei benachbarten Ableitungen</b> (4. universelle Infarktdefinition, übernommen in die ESC-Leitlinie 2023):</p>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Ableitungen</th><th>Grenzwert</th></tr></thead>
+        <tbody>
+          <tr><td>V2–V3</td><td>≥ 2,5 mm Männer &lt; 40 J. · ≥ 2 mm Männer ≥ 40 J. · ≥ 1,5 mm Frauen</td></tr>
+          <tr><td>alle anderen</td><td>≥ 1 mm (ohne LVH oder LSB)</td></tr>
+          <tr><td>V7–V9 (posterior)</td><td>≥ 0,5 mm</td></tr>
+          <tr><td>V3R, V4R (rechtsventrikulär)</td><td>≥ 0,5 mm (≥ 1 mm bei Männern &lt; 30 J.)</td></tr>
+        </tbody></table></div>
+      <p><b>Ischämiezeichen ohne ST-Hebung</b>: neue horizontale oder deszendierende ST-Senkung ≥ 0,5 mm in zwei benachbarten Ableitungen und/oder T-Negativierung &gt; 1 mm in zwei benachbarten Ableitungen mit prominentem R oder R/S &gt; 1.</p>
+    </div>
+    <aside class="margin-note">Das EKG ist eine Momentaufnahme. Bei anhaltendem Brustschmerz und unauffälligem oder grenzwertigem EKG: Verlaufs-EKG nach 15–30 Minuten und bei neuen Symptomen.</aside>
+  </div>
+
+  <figure class="fig" id="fig-11a">
+    <div class="fig-title"><span class="fn">Abb. 11.1</span>Koronarverschluss-Simulator</div>
+    <div class="controls"><div class="ctrl"><span class="lbl">Verschluss</span><div class="seg terr"></div></div></div>
+    <div class="controls">
+      <div class="ctrl"><span class="lbl">Muster</span><div class="seg spec"></div></div>
+      <div class="ctrl"><label for="st11">Zeitverlauf</label><input id="st11" class="stage" type="range" min="0" max="3" step="1" value="1"><output class="stage-out"></output></div>
+      <div class="ctrl"><label for="sx11">Patient</label><select id="sx11" class="sex"><option value="m">Mann ≥ 40 J.</option><option value="m40">Mann &lt; 40 J.</option><option value="w">Frau</option></select></div>
+    </div>
+    <div class="ecg-scroll"><canvas class="ecg-canvas main" aria-label="12-Kanal-EKG mit ST-Analyse"></canvas></div>
+    <div class="panel-label" style="margin-top:.5rem">Zusatzableitungen</div>
+    <div class="ecg-scroll"><canvas class="ecg-canvas extra" aria-label="Rechtspräkordiale und posteriore Ableitungen"></canvas></div>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Rot hinterlegt: ST-Hebung, die den Grenzwert in zwei benachbarten Ableitungen erreicht. Grau: ST-Senkung. Werte am J-Punkt gegenüber der PQ-Strecke. Modell eines typischen Rechtsversorgungstyps; im Einzelfall variiert das Muster mit Anatomie, Kollateralen und Vorerkrankungen.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Lokalisation</h3>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Infarkt</th><th>ST-Hebung</th><th>Spiegelbild</th><th>Gefäß</th></tr></thead>
+      <tbody>
+        <tr><td>anterior / anteroseptal</td><td>V1–V4</td><td>II, III, aVF (bei proximalem Verschluss)</td><td>RIVA</td></tr>
+        <tr><td>anterolateral</td><td>V3–V6, I, aVL</td><td>III, aVF</td><td>RIVA, Diagonalast</td></tr>
+        <tr><td>hochlateral</td><td>I, aVL (V2)</td><td>III, aVF</td><td>1. Diagonalast, R. circumflexus</td></tr>
+        <tr><td>inferior</td><td>II, III, aVF</td><td>I, aVL</td><td>RCA (III &gt; II), RCX (II ≥ III)</td></tr>
+        <tr><td>posterior</td><td>V7–V9</td><td>V1–V3 (ST-Senkung, hohes R)</td><td>RCX, RCA</td></tr>
+        <tr><td>rechtsventrikulär</td><td>V3R, V4R (V1)</td><td>–</td><td>proximale RCA</td></tr>
+      </tbody></table></div>
+    <h3>STEMI-Äquivalente und schwierige Situationen</h3>
+    <p>Nicht jeder akute Koronarverschluss erfüllt die klassischen ST-Hebungskriterien. Die ESC-Leitlinie 2023 nennt unter anderem: isolierter posteriorer Infarkt, ST-Senkung ≥ 1 mm in ≥ 6 Ableitungen mit ST-Hebung in aVR und/oder V1 (Hauptstamm/Mehrgefäß), de-Winter-Muster sowie Schenkelblock oder Schrittmacherrhythmus bei hohem klinischem Verdacht. Das Wellens-Muster zeigt eine kritische RIVA-Stenose im schmerzfreien Intervall an. Hinter diesen Mustern steht das Konzept des <i>okklusiven Myokardinfarkts</i> (OMI), das den Gefäßverschluss statt einzelner mm-Grenzen in den Mittelpunkt stellt.</p>
+    <h3>Infarkt bei Linksschenkelblock und Schrittmacher</h3>
+    <p>Beim LSB und bei rechtsventrikulärer Stimulation sind ST und T sekundär verändert. Hinweise auf einen akuten Infarkt geben die <b>Sgarbossa-Kriterien</b> (1996): konkordante ST-Hebung ≥ 1 mm (5 Punkte), ST-Senkung ≥ 1 mm in V1–V3 (3 Punkte), diskordante ST-Hebung ≥ 5 mm (2 Punkte); ≥ 3 Punkte sind hochspezifisch. Smith und Kollegen ersetzten das dritte Kriterium durch das Verhältnis von ST-Hebung zu S-Tiefe ≤ −0,25 und erhöhten so die Sensitivität deutlich. Nach ESC 2023 werden Patienten mit LSB (oder RSB) und hochgradigem Verdacht auf anhaltende Ischämie wie beim STEMI behandelt.</p>
+  </div>
+
+  <figure class="fig" id="fig-11b">
+    <div class="fig-title"><span class="fn">Abb. 11.2</span>Sgarbossa- und Smith-Kriterien</div>
+    <form class="sg" onsubmit="return false">
+      <label class="check"><input type="checkbox" name="c1"> Konkordante ST-Hebung ≥ 1 mm in einer Ableitung mit positivem QRS (5)</label>
+      <label class="check"><input type="checkbox" name="c2"> Konkordante ST-Senkung ≥ 1 mm in V1, V2 oder V3 (3)</label>
+      <label class="check"><input type="checkbox" name="c3"> Diskordante ST-Hebung ≥ 5 mm in einer Ableitung mit negativem QRS (2)</label>
+      <div class="sg-row"><label>Diskordante ST-Hebung (mm)<input name="st" inputmode="decimal" placeholder="z. B. 3"></label><label>Tiefe der S-Zacke in derselben Ableitung (mm)<input name="s" inputmode="decimal" placeholder="z. B. 10"></label></div>
+    </form>
+    <div class="sg-out" aria-live="polite"></div>
+    <figcaption>Sgarbossa EB et al. N Engl J Med 1996; Smith SW et al. Ann Emerg Med 2012. Die Kriterien sind spezifisch; ein negatives Ergebnis schließt einen Infarkt nicht aus.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p>Zum Üben: <a href="#faelle" data-case="19309">Fall 21</a> (akuter inferoposteriorer Infarkt), <a href="#faelle" data-case="1812">Fall 22</a> (tiefe T-Negativierungen), <a href="#faelle" data-case="6764">Fall 23</a> (alter posterolateraler Infarkt), <a href="#faelle" data-case="234">Fall 24</a> (Aneurysma), <a href="#faelle" data-case="8344">Fall 25</a> (alter Hinterwandinfarkt).</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>ST-Hebung in zwei benachbarten Ableitungen: V2–V3 ≥ 2/2,5/1,5 mm (♂ ≥ 40 / ♂ &lt; 40 / ♀), sonst ≥ 1 mm; V7–V9 und V3R/V4R ≥ 0,5 mm.</li>
+      <li>Spiegelbildliche Senkungen stützen die Diagnose; diffuse Hebung ohne Spiegelbild spricht eher für Perikarditis.</li>
+      <li>Inferior: III &gt; II → RCA; dann V4R ableiten (RV-Beteiligung). ST-Senkung V1–V3 → V7–V9 ableiten (posterior).</li>
+      <li>STEMI-Äquivalente: posterior, aVR-Hebung mit ausgedehnter Senkung, de Winter, LSB/Schrittmacher bei hohem Verdacht; Wellens im schmerzfreien Intervall.</li>
+      <li>Zeitverlauf: hyperakutes T → ST-Hebung → Q-Zacke und T-Negativierung → persistierendes Q.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap11"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 11</summary>
+    <ol>
+      <li>Byrne RA, Rossello X, Coughlan JJ et al. 2023 ESC Guidelines for the management of acute coronary syndromes. <i>Eur Heart J</i> 2023;44:3720–3826. <a href="https://academic.oup.com/eurheartj/article/44/38/3720/7243210">OUP</a> · Ergänzende Daten (EKG-Muster): <a href="https://www.uniklinik-ulm.de/fileadmin/default/09_Sonstige/Klinische-Chemie/Downloads/ehad191_supplementary_data_ESC_Guideline_ACS_2023.pdf">PDF</a></li>
+      <li>Thygesen K, Alpert JS, Jaffe AS et al. Fourth Universal Definition of Myocardial Infarction (2018). <i>Eur Heart J</i> 2019;40:237–269.</li>
+      <li>Wagner GS, Macfarlane P, Wellens H et al. AHA/ACCF/HRS Recommendations … Part VI: Acute ischemia/infarction. <i>Circulation</i> 2009;119:e262–e270.</li>
+      <li>Sgarbossa EB, Pinski SL, Barbagelata A et al. Electrocardiographic diagnosis of evolving acute myocardial infarction in the presence of left bundle-branch block. <i>N Engl J Med</i> 1996;334:481–487.</li>
+      <li>Smith SW, Dodd KW, Henry TD, Dvorak DM, Pearce LA. Diagnosis of ST-elevation myocardial infarction in the presence of left bundle branch block with the ST-elevation to S-wave ratio in a modified Sgarbossa rule. <i>Ann Emerg Med</i> 2012;60:766–776.</li>
+      <li>de Winter RJ, Verouden NJW, Wellens HJJ, Wilde AAM. A new ECG sign of proximal LAD occlusion. <i>N Engl J Med</i> 2008;359:2071–2073.</li>
+      <li>de Zwaan C, Bär FW, Wellens HJ. Characteristic electrocardiographic pattern indicating a critical stenosis high in left anterior descending coronary artery in patients admitted because of impending myocardial infarction. <i>Am Heart J</i> 1982;103:730–736.</li>
+      <li>Übersicht STEMI-Äquivalente: <a href="https://www.wikem.org/wiki/Posterior_MI">WikEM</a></li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#vt">← Kapitel 10</a><a href="#hypertrophie">Kapitel 12: Hypertrophie &amp; Belastung →</a></nav>
+</section>
+<section class="chapter" id="hypertrophie">
+  <header class="ch-head">
+    <span class="ch-num">12</span>
+    <h2>Hypertrophie &amp; Belastung</h2>
+    <p class="ch-sub">Vorhöfe, Kammern, akute Rechtsbelastung <span class="en">chamber enlargement and hypertrophy</span></p>
+  </header>
+  <p class="lead">Mehr Muskelmasse erzeugt einen größeren Summationsvektor – die Amplituden steigen. Verdickte Wände verändern zusätzlich die Repolarisation. Das EKG ist dabei ein grobes Werkzeug: Es erkennt ausgeprägte Hypertrophien zuverlässig, übersieht aber viele leichte. Die Diagnose stellt die Bildgebung.</p>
+
+  <figure class="fig" id="fig-12a">
+    <div class="fig-title"><span class="fn">Abb. 12.1</span>Hypertrophie-Indizes am Modell</div>
+    <div class="controls">
+      <div class="seg mode"></div>
+    </div>
+    <div class="controls">
+      <div class="ctrl"><label for="m12">LV-Masse</label><input id="m12" class="mass" type="range" min="60" max="140" value="100"><output class="mass-out"></output></div>
+      <div class="ctrl"><label for="s12">Geschlecht</label><select id="s12" class="sex"><option value="m">männlich</option><option value="w">weiblich</option></select></div>
+    </div>
+    <div class="ecg-scroll"><canvas class="ecg-canvas" aria-label="12-Kanal-EKG"></canvas></div>
+    <div class="fig-body split-even" style="margin-top:.6rem">
+      <div class="readout" aria-live="polite"></div>
+      <div class="table-wrap"><table class="data idx"></table></div>
+    </div>
+    <figcaption>Indizes aus den Modellamplituden berechnet; Grenzwerte nach AHA/ACCF/HRS (Teil V, 2009) bzw. Peguero et al. (2017). Mit dem Regler „LV-Masse“ siehst du, wie schnell ein Index die Grenze über- oder unterschreitet.</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Linksventrikuläre Hypertrophie</h3>
+      <ul>
+        <li><b>Sokolow-Lyon</b>: SV1 + RV5 oder RV6 &gt; 3,5 mV.</li>
+        <li><b>Cornell-Spannung</b>: RaVL + SV3 &gt; 2,8 mV (♂) bzw. &gt; 2,0 mV (♀). Das Cornell-Produkt (Spannung × QRS-Dauer) erhöht die Sensitivität.</li>
+        <li><b>Peguero-Lo Presti</b>: tiefstes S einer Ableitung + SV4 ≥ 2,8 mV (♂) bzw. ≥ 2,3 mV (♀) – sensitiver als die klassischen Indizes.</li>
+        <li><b>Romhilt-Estes</b>: Punktescore aus Amplitude, ST-T, linksatrialer Belastung, Achse und QRS-Dauer.</li>
+        <li>Unterstützend: Linkstyp, verlängerte R-Gipfelzeit in V5/V6, linksatriale Belastung, „Strain“-Muster lateral.</li>
+      </ul>
+      <p>Alle Spannungskriterien hängen von Alter, Geschlecht, Körperbau und Ethnie ab. Bei jungen, schlanken Menschen sind hohe Amplituden häufig normal; Adipositas und Lungenemphysem senken die Amplituden.</p>
+      <h3>Rechtsventrikuläre Hypertrophie</h3>
+      <p>R in V1 ≥ 0,7 mV, R/S in V1 &gt; 1, RV1 + SV5/V6 &gt; 1,05 mV, Rechtstyp, T-Negativierung rechtspräkordial, P dextroatriale. Weil der linke Ventrikel den Summationsvektor dominiert, wird eine RVH erst bei ausgeprägtem Befund sichtbar.</p>
+      <h3>Vorhöfe</h3>
+      <ul>
+        <li><b>Linksatrial</b> (P sinistroatriale): P ≥ 120 ms, doppelgipflig in II, negativer Endteil in V1 ≥ 1 mm tief und ≥ 40 ms breit.</li>
+        <li><b>Rechtsatrial</b> (P dextroatriale): P ≥ 0,25 mV in II, &gt; 0,15 mV positiv in V1.</li>
+      </ul>
+      <h3>Akute Rechtsherzbelastung</h3>
+      <p>Bei Lungenembolie ist die Sinustachykardie der häufigste Befund. Weitere Zeichen – T-Negativierungen in V1–V4, neuer inkompletter oder kompletter RSB, S<sub>I</sub>Q<sub>III</sub>T<sub>III</sub>, Rechtsdrehung – sind Ausdruck der Rechtsherzbelastung und prognostisch relevant, aber weder sensitiv noch spezifisch.</p>
+      <p>Zum Üben: <a href="#faelle" data-case="534">Fall 26</a> (LVH mit Strain), <a href="#faelle" data-case="2417">Fall 27</a> (RVH), <a href="#faelle" data-case="5955">Fall 28</a> (P dextroatriale).</p>
+    </div>
+    <aside class="margin-note">Ein EKG mit normalen Spannungsindizes schließt eine Linkshypertrophie nicht aus. Bei Hypertonie oder Herzgeräusch entscheidet die Echokardiografie.</aside>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Sokolow-Lyon &gt; 3,5 mV; Cornell &gt; 2,8 mV (♂) / &gt; 2,0 mV (♀); Peguero ≥ 2,8 / ≥ 2,3 mV.</li>
+      <li>EKG-Kriterien der LVH: spezifisch, aber wenig sensitiv.</li>
+      <li>Strain: deszendierende ST-Senkung mit asymmetrisch negativem T lateral – sekundär, nicht automatisch Ischämie.</li>
+      <li>RVH: R/S in V1 &gt; 1, Rechtstyp, rechtspräkordiale T-Negativierung.</li>
+      <li>P sinistroatriale: breit und doppelgipflig; P dextroatriale: hoch und spitz (≥ 0,25 mV in II).</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap12"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 12</summary>
+    <ol>
+      <li>Hancock EW, Deal BJ, Mirvis DM et al. AHA/ACCF/HRS Recommendations … Part V: Electrocardiogram changes associated with cardiac chamber hypertrophy. <i>Circulation</i> 2009;119:e251–e261.</li>
+      <li>Sokolow M, Lyon TP. The ventricular complex in left ventricular hypertrophy as obtained by unipolar precordial and limb leads. <i>Am Heart J</i> 1949;37:161–186.</li>
+      <li>Casale PN, Devereux RB, Kligfield P et al. Electrocardiographic detection of left ventricular hypertrophy: development and prospective validation of improved criteria. <i>J Am Coll Cardiol</i> 1985;6:572–580.</li>
+      <li>Peguero JG, Lo Presti S, Perez J et al. Electrocardiographic criteria for the diagnosis of left ventricular hypertrophy. <i>J Am Coll Cardiol</i> 2017;69:1694–1703.</li>
+      <li>Konstantinides SV, Meyer G, Becattini C et al. 2019 ESC Guidelines for the diagnosis and management of acute pulmonary embolism. <i>Eur Heart J</i> 2020;41:543–603.</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#ischaemie">← Kapitel 11</a><a href="#elektrolyte">Kapitel 13: Elektrolyte, Medikamente, Mimics →</a></nav>
+</section>
+<section class="chapter" id="elektrolyte">
+  <header class="ch-head">
+    <span class="ch-num">13</span>
+    <h2>Elektrolyte, Medikamente, Mimics</h2>
+    <p class="ch-sub">Was ST und T sonst noch verändert <span class="en">electrolytes, drugs and STEMI mimics</span></p>
+  </header>
+  <p class="lead">Nicht jede ST-Hebung ist ein Infarkt, nicht jede hohe T-Welle eine Ischämie. Elektrolytstörungen, Medikamente, Normvarianten und angeborene Ionenkanalerkrankungen verändern die Repolarisation charakteristisch. Wer die Muster kennt, vermeidet Fehldiagnosen in beide Richtungen.</p>
+
+  <figure class="fig" id="fig-13a">
+    <div class="fig-title"><span class="fn">Abb. 13.1</span>Kalium und Kalzium</div>
+    <div class="controls">
+      <div class="ctrl"><label for="k13">Serumkalium</label><input id="k13" class="k wide-200" type="range" min="22" max="90" value="42"><output class="k-out" style="min-width:8em"></output></div>
+      <div class="ctrl"><span class="lbl">Kalzium</span><div class="seg ca"><button type="button" data-v="niedrig">niedrig</button><button type="button" data-v="normal" aria-pressed="true">normal</button><button type="button" data-v="hoch">hoch</button></div></div>
+    </div>
+    <canvas class="ecg-canvas" aria-label="Ableitungen II, V2 und V5"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell der typischen Reihenfolge der Veränderungen. In einer Studie an Patienten mit Kalium ≥ 6,0 mmol/l hatte nur gut die Hälfte EKG-Veränderungen, spitze T-Wellen fanden sich bei weniger als einem Fünftel (Montague et al. 2008).</figcaption>
+  </figure>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Elektrolyte</h3>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Störung</th><th>Typische EKG-Zeichen</th></tr></thead>
+        <tbody>
+          <tr><td>Hyperkaliämie</td><td>spitze, schmalbasige T → P flach, PQ lang → QRS breit → Sinuswelle → Kammerflimmern/Asystolie; auch Bradykardie, AV-Block</td></tr>
+          <tr><td>Hypokaliämie</td><td>T flach, ST-Senkung, prominente U-Welle, scheinbar lange QT (QU), Extrasystolen, Torsade</td></tr>
+          <tr><td>Hyperkalzämie</td><td>kurze ST-Strecke und QT</td></tr>
+          <tr><td>Hypokalzämie</td><td>lange ST-Strecke und QT bei normaler T-Welle</td></tr>
+          <tr><td>Hypomagnesiämie</td><td>ähnlich der Hypokaliämie; begünstigt Torsade</td></tr>
+        </tbody></table></div>
+      <h3>Medikamente</h3>
+      <ul>
+        <li><b>Digitalis</b>: muldenförmige ST-Senkung („Salvador-Dalí-Schnurrbart“), kurze QT, flache T – Zeichen der Wirkung, nicht der Vergiftung. Toxisch: praktisch jede Rhythmusstörung möglich, typisch atriale Tachykardie mit AV-Block, bidirektionale VT, gehäufte VES.</li>
+        <li><b>QT-verlängernde Substanzen</b>: Klasse-I- und -III-Antiarrhythmika, Makrolide, Fluorchinolone, Antipsychotika, Methadon, Ondansetron u. v. m. Aktuelle Listen: <a href="https://crediblemeds.org">CredibleMeds</a>.</li>
+        <li><b>Natriumkanalblocker</b> (Flecainid, trizyklische Antidepressiva in Überdosis): QRS-Verbreiterung, terminales R in aVR; können ein Brugada-Muster demaskieren.</li>
+      </ul>
+    </div>
+    <aside class="margin-note">Bei unklarer Bradykardie oder breitem QRS immer an Kalium und Medikamente denken – das sind die häufigsten reversiblen Ursachen.</aside>
+  </div>
+
+  <figure class="fig" id="fig-13b">
+    <div class="fig-title"><span class="fn">Abb. 13.2</span>ST-Hebung – aber welche?</div>
+    <div class="controls"><div class="seg mode"></div></div>
+    <div class="ecg-scroll"><canvas class="ecg-canvas" aria-label="12-Kanal-EKG des gewählten Musters"></canvas></div>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Modell-EKGs. Das Brugada-Muster ist eine lokale Veränderung im rechtsventrikulären Ausflusstrakt und lässt sich mit einem reinen Dipolmodell nicht erzeugen; es ist hier gezielt in V1–V3 ergänzt.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Die wichtigsten Mimics</h3>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th></th><th>STEMI</th><th>Perikarditis</th><th>Frühe Repolarisation</th></tr></thead>
+      <tbody>
+        <tr><td>Verteilung</td><td>Koronargebiet</td><td>diffus</td><td>meist inferior/lateral bzw. V2–V5</td></tr>
+        <tr><td>Spiegelbild</td><td>ja</td><td>nur aVR (V1)</td><td>nein</td></tr>
+        <tr><td>ST-Form</td><td>konvex oder gerade</td><td>konkav</td><td>konkav, J-Knotung</td></tr>
+        <tr><td>PQ-Senkung</td><td>nein</td><td>häufig</td><td>nein</td></tr>
+        <tr><td>Q-Zacken</td><td>im Verlauf</td><td>nein</td><td>nein</td></tr>
+        <tr><td>Verlauf</td><td>dynamisch</td><td>Stadien über Tage</td><td>stabil</td></tr>
+      </tbody></table></div>
+    <p>Weitere Ursachen von ST-Hebungen: Linksschenkelblock, Linkshypertrophie, ventrikuläres Aneurysma, Takotsubo-Syndrom, Hyperkaliämie, Brugada-Muster, Hypothermie, Myokarditis, Kardioversion. Die ESC-Leitlinie zu ventrikulären Arrhythmien (2022) definiert das Brugada-Syndrom über eine spontane oder nach Natriumkanalblocker-Test auftretende Typ-1-Morphologie in V1/V2, abgeleitet im 2., 3. oder 4. ICR.</p>
+    <p>Zum Üben: <a href="#faelle" data-case="2886">Fall 29</a> (Digitalis), <a href="#faelle" data-case="9894">Fall 30</a> (QT-Verlängerung), <a href="#faelle" data-case="16993">Fall 02</a> (hohe T-Wellen als Normvariante), <a href="#faelle" data-case="4059">Fall 03</a> (ST-Hebung V2–V3 als Normvariante).</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>Hyperkaliämie: spitze T → P flach/PQ lang → QRS breit → Sinuswelle. Das EKG ist dafür wenig sensitiv.</li>
+      <li>Hypokaliämie: flache T, ST-Senkung, prominente U-Welle.</li>
+      <li>Kalzium verändert die Länge der ST-Strecke (hoch: kurz, niedrig: lang).</li>
+      <li>Perikarditis: diffuse konkave ST-Hebung, PQ-Senkung, kein Spiegelbild außer aVR.</li>
+      <li>Brugada Typ 1: gewölbte ST-Hebung ≥ 2 mm in V1/V2 mit negativem T – Risiko für plötzlichen Herztod.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap13"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 13</summary>
+    <ol>
+      <li>Montague BT, Ouellette JR, Buller GK. Retrospective review of the frequency of ECG changes in hyperkalemia. <i>Clin J Am Soc Nephrol</i> 2008;3:324–330. Zusammenfassung: <a href="https://www.bestbets.org/?p=5637">BestBETs</a></li>
+      <li>Zeppenfeld K, Tfelt-Hansen J, de Riva M et al. 2022 ESC Guidelines for the management of patients with ventricular arrhythmias and the prevention of sudden cardiac death. <i>Eur Heart J</i> 2022;43:3997–4126.</li>
+      <li>Macfarlane PW, Antzelevitch C, Haissaguerre M et al. The early repolarization pattern: a consensus paper. <i>J Am Coll Cardiol</i> 2015;66:470–477.</li>
+      <li>Adler Y, Charron P, Imazio M et al. 2015 ESC Guidelines for the diagnosis and management of pericardial diseases. <i>Eur Heart J</i> 2015;36:2921–2964.</li>
+      <li>Rautaharju PM, Surawicz B, Gettes LS. AHA/ACCF/HRS Recommendations … Part IV. <i>Circulation</i> 2009;119:e241–e250.</li>
+      <li>CredibleMeds – QTdrugs list. <a href="https://crediblemeds.org">crediblemeds.org</a></li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#hypertrophie">← Kapitel 12</a><a href="#schrittmacher">Kapitel 14: Schrittmacher-EKG →</a></nav>
+</section>
+<section class="chapter" id="schrittmacher">
+  <header class="ch-head">
+    <span class="ch-num">14</span>
+    <h2>Schrittmacher-EKG</h2>
+    <p class="ch-sub">Spikes, Modi, Fehlfunktionen <span class="en">paced ECG</span></p>
+  </header>
+  <p class="lead">Ein Schrittmacher gibt einen kurzen elektrischen Impuls ab – im EKG als schmaler senkrechter Strich, der „Spike“. Folgt ihm eine Depolarisation, hat er „gefangen“ (Capture). Ob der Schrittmacher zur richtigen Zeit stimuliert, hängt davon ab, was er wahrnimmt (Sensing). Beides lässt sich im EKG prüfen.</p>
+
+  <div class="two-col">
+    <div class="prose">
+      <h3>Der NBG-Code</h3>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>Position</th><th>Bedeutung</th><th>Buchstaben</th></tr></thead>
+        <tbody>
+          <tr><td>I</td><td>Ort der Stimulation</td><td>A (Atrium), V (Ventrikel), D (beide), O (keine)</td></tr>
+          <tr><td>II</td><td>Ort der Wahrnehmung</td><td>A, V, D, O</td></tr>
+          <tr><td>III</td><td>Antwort auf Wahrnehmung</td><td>I (Inhibition), T (Triggerung), D (beides), O (keine)</td></tr>
+          <tr><td>IV</td><td>Frequenzadaptation</td><td>R</td></tr>
+          <tr><td>V</td><td>multifokale Stimulation</td><td>A, V, D, O</td></tr>
+        </tbody></table></div>
+      <h3>Wie sieht ein stimulierter Komplex aus?</h3>
+      <ul>
+        <li><b>Vorhofstimulation</b>: Spike, gefolgt von einer P-Welle.</li>
+        <li><b>Rechtsventrikulär-apikale Stimulation</b>: breiter, LSB-artiger QRS mit superiorer Achse; ST-T diskordant.</li>
+        <li><b>Septale Stimulation / Conduction-System-Pacing</b>: schmalere Komplexe, je nach Ort.</li>
+        <li><b>Biventrikuläre Stimulation (CRT)</b>: oft dominantes R in V1 und negativer QRS in I.</li>
+        <li>Moderne bipolare Sonden erzeugen sehr kleine Spikes – sie sind leicht zu übersehen.</li>
+      </ul>
+    </div>
+    <aside class="margin-note">Spikes ohne nachfolgenden Komplex? Fehlende Spikes trotz Bradykardie? Spikes mitten in Eigenkomplexen? Diese drei Fragen decken die häufigsten Fehlfunktionen ab.</aside>
+  </div>
+
+  <figure class="fig" id="fig-14a">
+    <div class="fig-title"><span class="fn">Abb. 14.1</span>Schrittmacher-Simulator</div>
+    <div class="controls"><div class="ctrl"><span class="lbl">Modus</span><div class="seg mode"><button type="button" data-v="VVI">VVI</button><button type="button" data-v="AAI">AAI</button><button type="button" data-v="DDD" aria-pressed="true">DDD</button><button type="button" data-v="VOO">Magnet (VOO)</button></div></div></div>
+    <div class="controls"><div class="ctrl"><span class="lbl">Grundrhythmus</span><div class="seg base"><button type="button" data-v="sinus">Sinus 70/min</button><button type="button" data-v="brady">Sinusbradykardie 39/min</button><button type="button" data-v="avb3" aria-pressed="true">AV-Block III°</button><button type="button" data-v="af">VHF bradykard</button></div></div></div>
+    <div class="controls"><div class="ctrl"><span class="lbl">Funktion</span><div class="seg fault"><button type="button" data-v="none" aria-pressed="true">regelrecht</button><button type="button" data-v="capture">Exit-Block</button><button type="button" data-v="undersense">Undersensing</button><button type="button" data-v="oversense">Oversensing</button></div></div></div>
+    <canvas class="ecg-canvas" aria-label="Rhythmusstreifen II und V1 mit Schrittmacher-Markern"></canvas>
+    <div class="readout" aria-live="polite" style="margin-top:.6rem"></div>
+    <figcaption>Marker: AS/VS = wahrgenommen, AP/VP = stimuliert, × = kein Capture, N = Störsignal. Grundfrequenz 60/min, AV-Zeit 160 ms (nach wahrgenommener P-Welle 140 ms), Magnetfrequenz 85/min. Vereinfachte Zeitsteuerung; reale Geräte haben weitere Parameter (Refraktärzeiten, obere Grenzfrequenz, Hysterese).</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Fehlfunktionen</h3>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>Problem</th><th>EKG</th><th>Mögliche Ursachen</th></tr></thead>
+      <tbody>
+        <tr><td>Exit-Block (Loss of Capture)</td><td>Spike ohne P bzw. QRS</td><td>Sondendislokation, Reizschwellenanstieg, Batterie, Elektrolyte, Medikamente</td></tr>
+        <tr><td>Undersensing</td><td>Spikes trotz Eigenaktion, auch in der T-Welle</td><td>niedrige Eigensignale, Sondenproblem, Programmierung</td></tr>
+        <tr><td>Oversensing</td><td>Pausen ohne Spike</td><td>Muskelpotenziale, Sondenbruch, elektromagnetische Störung, T-Wellen-Oversensing</td></tr>
+        <tr><td>Kein Output</td><td>weder Spike noch Eigenrhythmus</td><td>Batterieerschöpfung, Sondenbruch, Oversensing</td></tr>
+      </tbody></table></div>
+    <p>Infarktdiagnostik im Schrittmacher-EKG: Wie beim LSB sind die ST-T-Veränderungen sekundär; die Sgarbossa- und Smith-Kriterien sind übertragbar (Kapitel 11).</p>
+    <p>Zum Üben: <a href="#faelle" data-case="3990">Fall 15</a> in der Fallklinik.</p>
+  </div>
+
+  <div class="keypoints">
+    <h3>Key Points</h3>
+    <ol>
+      <li>NBG-Code: 1. stimulierte Kammer, 2. wahrgenommene Kammer, 3. Antwort (I/T/D), 4. Frequenzadaptation.</li>
+      <li>RV-apikale Stimulation: breiter, LSB-artiger QRS mit superiorer Achse.</li>
+      <li>Exit-Block: Spike ohne Antwort. Undersensing: Spikes trotz Eigenaktion. Oversensing: Pausen ohne Spike.</li>
+      <li>Magnet: asynchrone Stimulation – Spikes in Eigenaktionen sind dann erwartbar.</li>
+      <li>Bipolare Spikes sind klein – im Zweifel Geräteausweis und Abfrage.</li>
+    </ol>
+  </div>
+  <div class="quiz" data-quiz="kap14"></div>
+  <details class="sources">
+    <summary>Quellen Kapitel 14</summary>
+    <ol>
+      <li>Bernstein AD, Daubert JC, Fletcher RD et al. The revised NASPE/BPEG generic code for antibradycardia, adaptive-rate, and multisite pacing. <i>Pacing Clin Electrophysiol</i> 2002;25:260–264.</li>
+      <li>Glikson M, Nielsen JC, Kronborg MB et al. 2021 ESC Guidelines on cardiac pacing and cardiac resynchronization therapy. <i>Eur Heart J</i> 2021;42:3427–3520.</li>
+      <li>Byrne RA et al. 2023 ESC Guidelines for the management of acute coronary syndromes. <i>Eur Heart J</i> 2023;44:3720–3826 (EKG bei Schrittmacherrhythmus).</li>
+    </ol>
+  </details>
+  <nav class="ch-nav"><a href="#elektrolyte">← Kapitel 13</a><a href="#faelle">Kapitel 15: Fallklinik →</a></nav>
+</section>
+<section class="chapter" id="faelle">
+  <header class="ch-head">
+    <span class="ch-num">15</span>
+    <h2>Fallklinik</h2>
+    <p class="ch-sub">Echte 12-Kanal-EKGs selbst befunden <span class="en">case practice</span></p>
+  </header>
+  <p class="lead">Hier übst du an <span class="case-count"></span> echten EKGs aus der PTB-XL-Datenbank. Befunde zuerst selbst – mit Messzirkel und Befundbogen –, dann vergleichen. Jeder Fall wurde von Kardiolog:innen annotiert und für diesen Kurs gesichtet.</p>
+
+  <div id="klinik">
+    <div class="case-tools">
+      <div class="seg case-filter" aria-label="Kategorie filtern"></div>
+      <label class="check"><input type="checkbox" class="show-cat" checked> Kategorie anzeigen</label>
+      <button class="btn ghost random" type="button">Zufallsfall</button>
+    </div>
+    <div class="case-grid"></div>
+
+    <figure class="fig viewer" hidden>
+      <p class="case-head"></p>
+      <div class="controls">
+        <div class="ctrl"><span class="lbl">Vorschub</span><div class="seg speed"><button type="button" data-v="25" aria-pressed="true">25 mm/s</button><button type="button" data-v="50">50 mm/s</button></div></div>
+        <div class="ctrl"><span class="lbl">Verstärkung</span><div class="seg gain"><button type="button" data-v="5">5</button><button type="button" data-v="10" aria-pressed="true">10</button><button type="button" data-v="20">20 mm/mV</button></div></div>
+        <div class="ctrl"><span class="lbl">Extremitäten</span><div class="seg order"><button type="button" data-v="std" aria-pressed="true">Standard</button><button type="button" data-v="cab">Cabrera</button></div></div>
+        <button class="btn ghost cal" type="button" aria-pressed="false">Messzirkel aus</button>
+      </div>
+      <div class="ecg-scroll"><canvas class="ecg-canvas" aria-label="12-Kanal-EKG des gewählten Falls"></canvas></div>
+      <div class="cal-out" aria-live="polite"></div>
+      <div class="viewer-grid">
+        <div>
+          <div class="panel-label">Dein Befund – nach dem Schema aus <a href="#befundung">Kapitel 6</a></div>
+          <form class="befund" onsubmit="return false"></form>
+          <div class="viewer-nav"><button class="btn reveal" type="button">Lösung zeigen</button><button class="btn ghost prev" type="button">← Vorheriger</button><button class="btn ghost next" type="button">Nächster →</button></div>
+        </div>
+        <div>
+          <div class="panel-label">Auflösung</div>
+          <div class="solution" hidden></div>
+        </div>
+      </div>
+      <figcaption>Originalsignale aus PTB-XL, nullphasig gefiltert (Hochpass 0,5 Hz, 50-Hz-Notch, Tiefpass 100 Hz), dargestellt mit 250 Hz (Schrittmacher-EKG mit 500 Hz). Messzirkel: im EKG ziehen; Ergebnis in ms und mV. Deine Einträge werden nur in deinem Browser gespeichert.</figcaption>
+    </figure>
+  </div>
+
+  <div class="prose">
+    <h3>Über die Daten</h3>
+    <p>PTB-XL umfasst 21 799 klinische 12-Kanal-EKGs (10 s) von 18 869 Patient:innen, aufgezeichnet 1989–1996 und von bis zu zwei Kardiolog:innen annotiert. Für diese Fallklinik wurden nur EKGs ausgewählt, deren Labels von Menschen validiert sind, die keine dokumentierten Qualitätsprobleme haben und deren diagnostische Aussage mit 100 % Likelihood annotiert ist. Danach wurde jeder Fall einzeln gesichtet; unruhige oder nicht eindeutige Aufzeichnungen sind herausgefallen.</p>
+    <p>Grenzen: PTB-XL enthält kaum akute Vorderwandinfarkte mit ST-Hebung und keine Labels für Hyperkaliämie, Brugada-Muster oder STEMI-Äquivalente wie das de-Winter-Muster. Diese Themen behandeln die jeweiligen Kapitel mit dem Modell und mit Verweisen auf frei zugängliche Sammlungen. Die Originalbefunde stammen teils aus automatischer Vorbefundung und sind deshalb nicht in jedem Detail maßgeblich.</p>
+  </div>
+
+  <details class="sources">
+    <summary>Quellen und Lizenz</summary>
+    <ol>
+      <li>Wagner P, Strodthoff N, Bousseljot RD, Kreiseler D, Lunze FI, Samek W, Schaeffter T. PTB-XL, a large publicly available electrocardiography dataset. <i>Sci Data</i> 2020;7:154. <a href="https://doi.org/10.1038/s41597-020-0495-6">doi:10.1038/s41597-020-0495-6</a></li>
+      <li>Wagner P, Strodthoff N, Bousseljot RD, Samek W, Schaeffter T. PTB-XL, a large publicly available electrocardiography dataset (Version 1.0.3). PhysioNet 2022. <a href="https://physionet.org/content/ptb-xl/1.0.3/">physionet.org/content/ptb-xl/1.0.3</a> – Lizenz: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Die Signale wurden für die Darstellung gefiltert und heruntergetastet.</li>
+      <li>Goldberger AL, Amaral LAN, Glass L et al. PhysioBank, PhysioToolkit, and PhysioNet. <i>Circulation</i> 2000;101:e215–e220.</li>
+      <li>Thygesen K, Alpert JS, Jaffe AS et al. Fourth Universal Definition of Myocardial Infarction (2018). <i>Eur Heart J</i> 2019;40:237–269.</li>
+      <li>Surawicz B, Childers R, Deal BJ, Gettes LS. AHA/ACCF/HRS Recommendations for the standardization and interpretation of the electrocardiogram: Part III: Intraventricular conduction disturbances. <i>Circulation</i> 2009;119:e235–e240.</li>
+    </ol>
+  </details>
+</section>
+
+</main>
+
+<footer class="site">
+  <p><b>Hinweis.</b> Lernmaterial für Studium und Weiterbildung, kein Ersatz für klinische Ausbildung, Leitlinien oder ärztliche Beurteilung. Die animierten Kurven stammen aus einem vereinfachten Dipolmodell und dienen dem Verständnis von Mechanismen; sie sind keine Patientenaufzeichnungen.</p>
+  <p>Echte EKGs: PTB-XL (PhysioNet), Wagner et al. 2020, Lizenz CC BY 4.0; für die Darstellung gefiltert und heruntergetastet. Inhalte mit Quellenangabe je Kapitel. Fehler gefunden? Bitte melden – jede Aussage soll sich auf eine Quelle zurückführen lassen.</p>
+</footer>
+
+<script src="assets/js/ecg-model.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/ch01.js"></script>
+<script src="assets/js/ch02.js"></script>
+<script src="assets/js/rhythms.js"></script>
+<script src="assets/js/schema.js"></script>
+<script src="assets/js/ch03.js"></script>
+<script src="assets/js/ch04.js"></script>
+<script src="assets/js/ch05.js"></script>
+<script src="assets/js/ch06.js"></script>
+<script src="assets/js/ch07.js"></script>
+<script src="assets/js/ch08.js"></script>
+<script src="assets/js/ch09.js"></script>
+<script src="assets/js/ch10.js"></script>
+<script src="assets/js/ch11.js"></script>
+<script src="assets/js/ch12.js"></script>
+<script src="assets/js/ch13.js"></script>
+<script src="assets/js/ch14.js"></script>
+<script src="assets/js/cases-catalog.js"></script>
+<script src="assets/js/ch15.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    U.initChrome();
+    // Hero-Kurve aus dem Modell (Ableitung II)
+    const r = EKG.regular({ hr: 72, duration: 5000, start: 150 });
+    const s = EKG.render(r.schedule, { fs: 200, duration: 5000, leads: ["II"] }).leads.II;
+    const p = document.querySelector("#hero-trace path");
+    let d = "";
+    for (let i = 0; i < s.length; i++) d += (i ? "L" : "M") + ((i / s.length) * 1200).toFixed(1) + "," + (62 - s[i] * 38).toFixed(1);
+    p.setAttribute("d", d);
+    if (!U.reducedMotion()) {
+      const L = p.getTotalLength();
+      p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+      p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 2600, easing: "ease-out", fill: "forwards" });
+    }
+  });
+</script>
+</body>
+</html>
